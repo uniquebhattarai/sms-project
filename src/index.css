@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@theme{
+    --color-primary: #1E3A8A;
+    --color-secondary: #3B82F6;
+    --color-accent: #10B981;
+    --color-background: #F9FAFB;
+    --color-text: #111827;
+  }
+
+  html,body{
+    overflow-x: hidden;
+  }
