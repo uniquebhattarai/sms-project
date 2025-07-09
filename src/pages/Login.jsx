@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { login } from '../services/Apis'; 
 
 function Login({ setIsLoggedIn }) {
   const navigate = useNavigate();
@@ -12,19 +13,29 @@ function Login({ setIsLoggedIn }) {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  function changeHandler(event) {
+  const changeHandler = (event) => {
     setFormData((prevData) => ({
       ...prevData,
       [event.target.name]: event.target.value,
     }));
-  }
+  };
 
-  function submitHandler(event) {
-    event.preventDefault();
-    setIsLoggedIn(true);
-    toast.success('Logged In');
-    navigate('/dashboard');
-  }
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await login(formData.email, formData.password);
+
+      localStorage.setItem("access", res.access);
+      localStorage.setItem("refresh", res.refresh);
+
+      toast.success("Logged in successfully");
+      setIsLoggedIn(true);
+      navigate("/dashboard");
+    } catch (err) {
+      console.log(err);
+      toast.error("Invalid credentials or server error");
+    }
+  };
 
   return (
     <div className="flex h-screen w-screen items-center justify-center bg-secondary">
@@ -34,17 +45,17 @@ function Login({ setIsLoggedIn }) {
       >
         <h2 className="mb-6 text-center text-2xl font-bold text-white">Welcome Back 👋</h2>
 
-        {/* Email */}
+        {/* Username */}
         <label className="mb-4 block">
-          <p className="mb-1 text-sm text-white">Email Address</p>
+          <p className="mb-1 text-sm text-white">E-mail</p>
           <input
-            type="email"
+            type="text"
             value={formData.email}
             onChange={changeHandler}
             name="email"
             id="email"
             required
-            placeholder="Enter your email"
+            placeholder="E-mail"
             className="w-full rounded border border-blue-700 bg-transparent px-3 py-2 text-white placeholder-gray-400 focus:border-blue-400 focus:outline-none"
           />
         </label>
