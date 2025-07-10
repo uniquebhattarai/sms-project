@@ -25,7 +25,7 @@ function Dashboard({ setIsLoggedIn }) {
   console.log("Student object is:", student);
   return (
     <div>
-      <Navbar fullName={student?.full_name}  setIsLoggedIn={setIsLoggedIn} />
+      <Navbar fullName={student?.data?.full_name}  setIsLoggedIn={setIsLoggedIn} />
       {/* <UploadPhoto /> */}
       <h1 className="text-4xl font-extrabold text-primary text-center mt-10">
         Dashboard

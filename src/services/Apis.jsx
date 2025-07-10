@@ -16,7 +16,6 @@ export const register = async (formData) => {
 
 export const getStudent = async () => {
   const token = localStorage.getItem("access");
-  console.log("Access token being used:", token); // ✅
 
   if (!token) {
     throw new Error("No access token found in localStorage.");

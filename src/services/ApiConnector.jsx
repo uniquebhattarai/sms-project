@@ -1,7 +1,7 @@
 // src/api/apiConnector.js
 import axios from "axios";
 
-export const BASE_URL = "https://student-management-system-1-ldgq.onrender.com/api";
+export const BASE_URL = "https://prejjj.pythonanywhere.com/api";
 
 export const axiosInstance = axios.create({
   baseURL: BASE_URL,
