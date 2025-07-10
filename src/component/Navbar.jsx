@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import logo from '../assets/finalLogo.png';
 import toast from 'react-hot-toast';
 
 export default function Navbar({setIsLoggedIn}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
