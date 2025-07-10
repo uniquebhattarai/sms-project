@@ -1,12 +1,24 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 
-// This route checks if JWT access token exists
-function PrivateRoute({ children }) {
-  const access = localStorage.getItem("access");
+export default function PrivateRoute({ children }) {
+  const [isChecking, setIsChecking] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // If token exists, user is considered logged in
-  return access ? children : <Navigate to="/" />;
+  useEffect(() => {
+    const access = localStorage.getItem("access");
+
+    if (access) {
+      setIsAuthenticated(true);
+    }
+    setIsChecking(false); // Done checking
+  }, []);
+
+  if (isChecking) {
+    // Optional: replace with loader/spinner
+    return null;
+  }
+
+  return isAuthenticated ? children : <Navigate to="/" replace />;
 }
-
-export default PrivateRoute;

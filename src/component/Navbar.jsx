@@ -12,6 +12,8 @@ export default function Navbar({setIsLoggedIn}) {
 
   function logoutHandler(event){
     event.preventDefault();
+    localStorage.removeItem("access");
+    localStorage.removeItem("refresh");
     setIsLoggedIn(false);
     toast.success('logged out', {
       duration: 3000,

@@ -10,8 +10,8 @@ function App(){
         <div className="w-screen min-h-screen bg-background ">
             <Routes>
                 <Route path="/" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
-                <Route path="/Dashboard" element={
-                    <PrivateRoute  isLoggedIn={isLoggedIn}>
+                <Route path="/dashboard" element={
+                    <PrivateRoute >
                     <Dashboard setIsLoggedIn={setIsLoggedIn} />
                 </PrivateRoute>}>
                 </Route>
