@@ -3,6 +3,7 @@ import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import { useState } from "react";
 import PrivateRoute from "./component/PrivateRoute";
+import Attendance from "./pages/Attendance";
 
 function App(){
     const[isLoggedIn,setIsLoggedIn]= useState(false);
@@ -14,6 +15,13 @@ function App(){
                     <PrivateRoute >
                     <Dashboard setIsLoggedIn={setIsLoggedIn} />
                 </PrivateRoute>}>
+                </Route>
+                <Route path="/attendance" element={
+                 <PrivateRoute>
+                    <Attendance setIsLoggedIn={setIsLoggedIn} />
+                 </PrivateRoute>   
+                }>
+
                 </Route>
             </Routes>
             

@@ -12,11 +12,10 @@ export default function PrivateRoute({ children }) {
     if (access) {
       setIsAuthenticated(true);
     }
-    setIsChecking(false); // Done checking
+    setIsChecking(false); 
   }, []);
 
   if (isChecking) {
-    // Optional: replace with loader/spinner
     return null;
   }
 
