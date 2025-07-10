@@ -11,7 +11,7 @@ function Dashboard({ setIsLoggedIn }) {
         const token = localStorage.getItem("access");
 
         const response = await axios.get(
-          "https://student-management-system-1-ldgq.onrender.com/api/student/",
+          "http:127.0.0.1:8000/api/student/",
           {
             headers: {
               Authorization: `Bearer ${token}`,

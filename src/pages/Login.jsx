@@ -10,7 +10,7 @@ function Login({ setIsLoggedIn }) {
     email: '',
     password: '',
   });
-
+// http://127.0.0.1:8000/api/login/
   const [showPassword, setShowPassword] = useState(false);
 
   const changeHandler = (event) => {
@@ -25,8 +25,8 @@ function Login({ setIsLoggedIn }) {
     try {
       const res = await login(formData.email, formData.password);
 
-      localStorage.setItem("access", res.access);
-      localStorage.setItem("refresh", res.refresh);
+      localStorage.setItem("access", res.data.access);
+      localStorage.setItem("refresh", res.data.refresh);
 
       toast.success("Logged in successfully");
       setIsLoggedIn(true);
