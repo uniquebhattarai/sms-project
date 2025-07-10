@@ -3,8 +3,9 @@ import { Link,useNavigate } from 'react-router-dom';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import logo from '../assets/finalLogo.png';
 import toast from 'react-hot-toast';
+import AvatarMenu from './Avatarmenu';
 
-export default function Navbar({setIsLoggedIn}) {
+export default function Navbar({setIsLoggedIn,fullName}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -38,9 +39,8 @@ export default function Navbar({setIsLoggedIn}) {
 
   {/* Right side: Logout Button */}
   <div className="flex items-center">
-    <button onClick={logoutHandler} className="rounded px-4 py-1.5 text-sm font-medium text-white transition hover:bg-blue-800 hover:cursor-pointer">
-      Logout
-    </button>
+  <AvatarMenu fullName={fullName} setIsLoggedIn={setIsLoggedIn} />
+
   </div>
 </div>
 

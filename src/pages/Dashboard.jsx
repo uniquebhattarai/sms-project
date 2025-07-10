@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../component/Navbar";
 import { getStudent } from "../services/Apis";
-import UploadPhoto from "../component/UploadPhoto";
+// import UploadPhoto from "../component/UploadPhoto";
 
 function Dashboard({ setIsLoggedIn }) {
   const [student, setStudent] = useState(null);
@@ -25,8 +25,8 @@ function Dashboard({ setIsLoggedIn }) {
   console.log("Student object is:", student);
   return (
     <div>
-      <Navbar setIsLoggedIn={setIsLoggedIn} />
-      <UploadPhoto />
+      <Navbar fullName={student?.full_name}  setIsLoggedIn={setIsLoggedIn} />
+      {/* <UploadPhoto /> */}
       <h1 className="text-4xl font-extrabold text-primary text-center mt-10">
         Dashboard
       </h1>

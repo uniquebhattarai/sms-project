@@ -33,7 +33,7 @@ function Login({ setIsLoggedIn }) {
       navigate("/dashboard");
     } catch (err) {
       console.log(err);
-      toast.error("Invalid credentials or server error");
+      toast.error("User Doesnot Exist");
     }
   };
 
