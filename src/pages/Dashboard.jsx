@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../component/Navbar";
 import { getStudent } from "../services/Apis";
-// import UploadPhoto from "../component/UploadPhoto";
 
 function Dashboard({ setIsLoggedIn }) {
   const [student, setStudent] = useState(null);
@@ -22,19 +21,21 @@ function Dashboard({ setIsLoggedIn }) {
 
     fetchStudent();
   }, []);
-  console.log("Student object is:", student);
+
   return (
-    <div>
-      <Navbar fullName={student?.data?.full_name}  setIsLoggedIn={setIsLoggedIn} />
-      {/* <UploadPhoto /> */}
-      <h1 className="text-4xl font-extrabold text-primary text-center mt-10">
-        Dashboard
-      </h1>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-indigo-50">
+      <Navbar fullName={student?.data?.full_name} setIsLoggedIn={setIsLoggedIn} />
 
-      <div className="mt-6 mx-auto w-fit px-6 py-4 rounded-lg bg-blue-950 text-white border border-blue-700 shadow-md text-center text-lg">
-      👋 Welcome {student ? student.data.full_name : ""} to the Student Management System!
+      <div className="px-6 py-10">
+        <h1 className="text-3xl font-bold text-gray-900 text-center mb-6">
+          Dashboard
+        </h1>
 
-
+        <div className="max-w-xl mx-auto text-center bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
+          <p className="text-lg text-gray-800 font-medium">
+            👋 Welcome {student ? student.data.full_name : "Student"} to the Student Management System!
+          </p>
+        </div>
       </div>
     </div>
   );
