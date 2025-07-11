@@ -29,7 +29,7 @@ function Login({ setIsLoggedIn }) {
       navigate("/dashboard");
     } catch (err) {
       console.error(err);
-      Toast.error("Invalid credentials. Please try again.");
+      Toast.error("User Doesnot exist");
     } finally {
       setIsLoading(false);
     }
@@ -89,11 +89,7 @@ function Login({ setIsLoggedIn }) {
                 className="absolute inset-y-0 right-3 flex items-center"
                 onClick={() => setShowPassword((prev) => !prev)}
               >
-                {showPassword ? (
-                  <AiOutlineEye className="text-gray-500 hover:text-gray-700" size={20} />
-                ) : (
-                  <AiOutlineEyeInvisible className="text-gray-500 hover:text-gray-700" size={20} />
-                )}
+                {showPassword ?  '👁️':'🙈' }
               </button>
             </div>
           </div>
@@ -102,7 +98,7 @@ function Login({ setIsLoggedIn }) {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full py-3 px-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg shadow-md hover:from-blue-700 hover:to-purple-700 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-transform transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full py-3 px-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg shadow-md hover:from-blue-700 hover:to-purple-700 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-transform transform hover:scale-105 disabled:opacity-50 hover:cursor-pointer"
           >
             {isLoading ? (
               <div className="flex items-center justify-center">

@@ -11,3 +11,21 @@
   html,body{
     overflow-x: hidden;
   }
+
+  .react-calendar {
+    border: none;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    padding: 1rem;
+  }
+  
+  .react-calendar__tile {
+    padding: 0.75rem 0.5rem;
+    border-radius: 8px;
+  }
+  
+  .react-calendar__tile--active {
+    background: linear-gradient(to right, #3b82f6, #8b5cf6);
+    color: white;
+  }

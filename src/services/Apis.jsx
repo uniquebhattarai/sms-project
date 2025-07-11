@@ -9,10 +9,7 @@ export const login = async (email, password) => {
   return response.data;
 };
 
-export const register = async (formData) => {
-  const response = await apiConnector("POST", "/register/", formData);
-  return response.data;
-};
+
 
 export const getStudent = async () => {
   const token = localStorage.getItem("access");
@@ -43,3 +40,22 @@ export const uploadPhoto = async (file) => {
   return response.data;
 };
 
+export const updateUser = async (userData) => {
+  const token = localStorage.getItem("access");
+
+  const response = await apiConnector("PUT", "/register/update/", userData, {
+    Authorization: `Bearer ${token}`,
+  });
+
+  return response.data;
+};
+
+export const deleteUser = async (id) => {
+  const token = localStorage.getItem("access");
+
+  const response = await apiConnector("DELETE", "/register/delete/", { id }, {
+    Authorization: `Bearer ${token}`,
+  });
+
+  return response.data;
+};

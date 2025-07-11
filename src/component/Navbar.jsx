@@ -98,7 +98,7 @@ export function Navbar({ setIsLoggedIn, fullName }) {
               </Link>
             </div>
 
-            <AvatarMenu fullName={fullName} setIsLoggedIn={setIsLoggedIn} />
+            <AvatarMenu className="hover:cursor-pointer" fullName={fullName} setIsLoggedIn={setIsLoggedIn} />
           </div>
         </div>
       </nav>

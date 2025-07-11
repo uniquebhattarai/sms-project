@@ -8,4 +8,7 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  optimizeDeps: {
+    include: ["react-calendar", "bikram-sambat-js"]
+  }
 })
