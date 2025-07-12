@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import { Toast } from '../../utils/Toast';
 import { login } from '../services/Apis';
