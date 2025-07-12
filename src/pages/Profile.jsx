@@ -1,32 +1,46 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../component/Navbar";
-import { getStudent, updateUser, deleteUser, uploadPhoto } from "../services/Apis";
+import {
+  getStudent,
+  updateUser,
+  deleteUser,
+  uploadPhoto,
+  getPhoto,
+} from "../services/Apis";
 import { Toast } from "../../utils/Toast";
 import { useNavigate } from "react-router-dom";
 
-function Profile({ setIsLoggedIn }) {
-  const [student, setStudent] = useState(null);
+function Profile({ setIsLoggedIn, setFullName, setPhotoUrl }) {
   const [formData, setFormData] = useState({ full_name: "", email: "", id: null });
   const [file, setFile] = useState(null);
+  const [photoUrlLocal, setPhotoUrlLocal] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchStudent = async () => {
+    const fetchStudentAndPhoto = async () => {
       try {
         const data = await getStudent();
         const user = Array.isArray(data) ? data[0] : data;
-        setStudent(user);
+
         setFormData({
           full_name: user?.data?.full_name || "",
           email: user?.data?.email || "",
           id: user?.data?.id || null,
         });
+
+        const photoResponse = await getPhoto();
+        const imageUrl = photoResponse?.profile_picture_url || null;
+        setPhotoUrlLocal(imageUrl);
+
+        // Update global states too on load
+        setFullName(user?.data?.full_name || "");
+        if (imageUrl) setPhotoUrl(imageUrl);
       } catch (error) {
-        console.error("Failed to fetch student data:", error);
+        console.error("Failed to fetch student/photo data:", error);
       }
     };
-    fetchStudent();
-  }, []);
+
+    fetchStudentAndPhoto();
+  }, [setFullName, setPhotoUrl]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -37,6 +51,7 @@ function Profile({ setIsLoggedIn }) {
     try {
       await updateUser(formData);
       Toast.success("Profile updated successfully!");
+      setFullName(formData.full_name);
     } catch (err) {
       console.error(err);
       Toast.error("Update failed!");
@@ -61,25 +76,33 @@ function Profile({ setIsLoggedIn }) {
 
   const handlePhotoUpload = async () => {
     if (!file) return Toast.error("Please select an image first.");
+
     try {
       await uploadPhoto(file);
+
+      const photoResponse = await getPhoto();
+      const imageUrl = photoResponse?.profile_picture_url || null;
+
+      if (imageUrl) {
+        setPhotoUrlLocal(imageUrl);
+        setPhotoUrl(imageUrl); // update global photoUrl on upload
+      }
+
       Toast.success("Photo uploaded successfully");
     } catch (err) {
-      console.error(err);
+      console.error("Upload failed:", err);
       Toast.error("Photo upload failed");
     }
   };
 
-  const avatarUrl = student?.data?.user_image
-    ? student.data.user_image
+  const avatarUrl = photoUrlLocal
+    ? `${photoUrlLocal}?t=${Date.now()}`
     : `https://api.dicebear.com/9.x/initials/svg?seed=${encodeURIComponent(
         formData.full_name
       )}&backgroundColor=3B82F6&fontColor=ffffff`;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 relative z-0 overflow-hidden">
-      <Navbar fullName={student?.data?.full_name} setIsLoggedIn={setIsLoggedIn} />
-
       <div className="max-w-4xl mx-auto pt-12 px-6 relative z-10">
         {/* Profile Header */}
         <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl border border-white/30 p-12 mb-8">

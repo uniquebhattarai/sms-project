@@ -14,13 +14,17 @@ import {
 import { Toast } from "../../utils/Toast";
 
 // Avatar Menu Component
-function AvatarMenu({ setIsLoggedIn, fullName = "User" }) {
+function AvatarMenu({ setIsLoggedIn, fullName = "User", photoUrl = null })
+ {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
-  const avatarUrl = `https://api.dicebear.com/9.x/initials/svg?seed=${encodeURIComponent(
+  const fallbackAvatar = `https://api.dicebear.com/9.x/initials/svg?seed=${encodeURIComponent(
     fullName
   )}&backgroundColor=3B82F6&fontColor=ffffff`;
+
+  const avatarUrl = photoUrl ? `${photoUrl}?t=${Date.now()}` : fallbackAvatar;
+
 
   const handleLogout = () => {
     localStorage.removeItem("access");
@@ -71,7 +75,7 @@ function AvatarMenu({ setIsLoggedIn, fullName = "User" }) {
 }
 
 // Navbar Component
-export function Navbar({ setIsLoggedIn, fullName }) {
+export function Navbar({ setIsLoggedIn, fullName,photoUrl }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -98,7 +102,8 @@ export function Navbar({ setIsLoggedIn, fullName }) {
               </Link>
             </div>
 
-            <AvatarMenu className="hover:cursor-pointer" fullName={fullName} setIsLoggedIn={setIsLoggedIn} />
+            <AvatarMenu className="hover:cursor-pointer" fullName={fullName} photoUrl={photoUrl} setIsLoggedIn={setIsLoggedIn} />
+
           </div>
         </div>
       </nav>

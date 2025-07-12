@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../component/Navbar";
 import { getStudent } from "../services/Apis";
 
 function Attendance({ setIsLoggedIn }) {
@@ -24,7 +23,6 @@ function Attendance({ setIsLoggedIn }) {
 
   return (
     <div>
-      <Navbar fullName={student?.data?.full_name} setIsLoggedIn={setIsLoggedIn} />
 
       <h1 className="text-4xl font-extrabold text-primary text-center mt-10">
         Attendance Page

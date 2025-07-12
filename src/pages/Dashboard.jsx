@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../component/Navbar";
-import { getStudent } from "../services/Apis";
+import { getStudent,getPhoto } from "../services/Apis";
 
 function Dashboard({ setIsLoggedIn }) {
   const [student, setStudent] = useState(null);
+    const [fullName, setFullName] = useState("");
+  const [photoUrl, setPhotoUrl] = useState("");
 
   useEffect(() => {
     const fetchStudent = async () => {
@@ -24,7 +25,6 @@ function Dashboard({ setIsLoggedIn }) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-indigo-50">
-      <Navbar fullName={student?.data?.full_name} setIsLoggedIn={setIsLoggedIn} />
 
       <div className="px-6 py-10">
         <h1 className="text-3xl font-bold text-gray-900 text-center mb-6">

@@ -40,6 +40,25 @@ export const uploadPhoto = async (file) => {
   return response.data;
 };
 
+export const getPhoto = async () => {
+  const token = localStorage.getItem("access");
+
+  const response = await apiConnector("GET", "/get_photo/", null, {
+    Authorization: `Bearer ${token}`,
+  });
+
+  const data = response.data;
+
+  // Attach full image URL
+  if (Array.isArray(data) && data.length > 0 && data[0].user_image) {
+    data[0].user_image = `https://prejjj.pythonanywhere.com${data[0].user_image}`;
+  }
+
+  return data;
+};
+
+
+
 export const updateUser = async (userData) => {
   const token = localStorage.getItem("access");
 
