@@ -78,3 +78,14 @@ export const deleteUser = async (id) => {
 
   return response.data;
 };
+
+
+export const attendanceDetail = async()=>{
+  const token = localStorage.getItem("access");
+  const response = await apiConnector("GET","/attendance_detail/",null,{
+    Authorization:`Bearer ${token}`,
+  });
+
+  return response.data;
+  
+}

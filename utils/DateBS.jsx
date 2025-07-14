@@ -68,13 +68,13 @@ export const BSMonths = [
     }
   
     toAD() {
-      const start = new Date("1944-01-01T00:00");
+      const start = new Date("2024-04-13T00:00");
       start.setDate(start.getDate() + this.daysSince());
       return start;
     }
   
     static fromAD(date = new Date()) {
-      const start = new Date("1944-01-01T00:00");
+      const start = new Date("2024-04-13T00:00");
       const diff = Math.floor((date - start) / (1000 * 60 * 60 * 24));
       const bs = new DateBS(2081, 1, 1);
       return bs.add(diff);
