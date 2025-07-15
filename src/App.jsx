@@ -1,7 +1,7 @@
 import { Route, Routes, useLocation } from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
+import StudentDashboard from "./pages/Student/StudentDashboard";
 import Login from "./pages/Login";
-import Attendance from "./pages/Attendance";
+import Attendance from "./pages/Student/Attendance";
 import Profile from "./pages/Profile";
 import PrivateRoute from "./component/PrivateRoute";
 import Navbar from "./component/Navbar";
@@ -49,34 +49,9 @@ function App() {
       )}
       <Routes>
         <Route path="/" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
-        <Route
-          path="/dashboard"
-          element={
-            <PrivateRoute>
-              <Dashboard />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/attendance"
-          element={
-            <PrivateRoute>
-              <Attendance />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/profile"
-          element={
-            <PrivateRoute>
-              <Profile
-                setIsLoggedIn={setIsLoggedIn}
-                setFullName={setFullName}
-                setPhotoUrl={setPhotoUrl}
-              />
-            </PrivateRoute>
-          }
-        />
+        <Route path="/student/dashboard" element={<PrivateRoute><StudentDashboard /></PrivateRoute> }/>
+        <Route path="student/attendance"element={<PrivateRoute><Attendance /></PrivateRoute>}/>
+        <Route path="/profile"element={<PrivateRoute><Profile setIsLoggedIn={setIsLoggedIn}setFullName={setFullName}setPhotoUrl={setPhotoUrl}/> </PrivateRoute>}/>
       </Routes>
     </div>
   );

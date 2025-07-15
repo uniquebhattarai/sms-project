@@ -40,7 +40,7 @@ function AvatarMenu({ setIsLoggedIn, fullName = "User", photoUrl = null })
     <div className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-2 p-2 rounded-lg hover:bg-white/10 transition-all duration-200"
+        className="flex items-center gap-2 p-2 rounded-lg hover:bg-white/10 transition-all duration-200 hover:cursor-pointer"
       >
         <img
           src={avatarUrl}
@@ -88,12 +88,12 @@ export function Navbar({ setIsLoggedIn, fullName,photoUrl }) {
             <div className="flex items-center gap-4">
               <button
                 onClick={toggleMenu}
-                className="p-2 rounded-lg hover:bg-white/10 transition-all duration-200 focus:outline-none"
+                className="p-2 rounded-lg hover:bg-white/10 transition-all duration-200 focus:outline-none hover:cursor-pointer"
               >
                 <RxHamburgerMenu className="w-6 h-6 text-white" />
               </button>
-              <Link to="/dashboard" className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg border-2 border-white/20">
+              <Link to="/student/dashboard" className="flex items-center gap-3 ">
+                <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg border-2 border-white/20 ">
                   <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" />
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
@@ -102,7 +102,7 @@ export function Navbar({ setIsLoggedIn, fullName,photoUrl }) {
               </Link>
             </div>
 
-            <AvatarMenu className="hover:cursor-pointer" fullName={fullName} photoUrl={photoUrl} setIsLoggedIn={setIsLoggedIn} />
+            <AvatarMenu  fullName={fullName} photoUrl={photoUrl} setIsLoggedIn={setIsLoggedIn} />
 
           </div>
         </div>
@@ -127,7 +127,7 @@ export function Navbar({ setIsLoggedIn, fullName,photoUrl }) {
             <nav className="p-4">
               <div className="space-y-2">
                 <Link
-                  to="/dashboard"
+                  to="/student/dashboard"
                   className="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-blue-50"
                   onClick={toggleMenu}
                 >
@@ -136,7 +136,7 @@ export function Navbar({ setIsLoggedIn, fullName,photoUrl }) {
                 </Link>
 
                 <Link
-                  to="/attendance"
+                  to="/student/attendance"
                   className="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-blue-50"
                   onClick={toggleMenu}
                 >

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { getStudent,getPhoto } from "../services/Apis";
+import { getStudent,getPhoto } from "../../services/Apis";
 
-function Dashboard({ setIsLoggedIn }) {
+function StudentDashboard({ setIsLoggedIn }) {
   const [student, setStudent] = useState(null);
     const [fullName, setFullName] = useState("");
   const [photoUrl, setPhotoUrl] = useState("");
@@ -41,4 +41,4 @@ function Dashboard({ setIsLoggedIn }) {
   );
 }
 
-export default Dashboard;
+export default StudentDashboard;

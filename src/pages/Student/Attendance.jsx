@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import DateBS from "../../utils/DateBS";
-import { attendanceDetail } from "../services/Apis";
-import { Toast } from "../../utils/Toast";
+import DateBS from "../../../utils/DateBS";
+import { attendanceDetail } from "../../services/Apis";
+import { Toast } from "../../../utils/Toast";
 
 const BS_MONTH_NAMES = [
   "वैशाख",

@@ -25,7 +25,7 @@ function Login({ setIsLoggedIn }) {
       Toast.success("Logged in successfully!");
 
       setIsLoggedIn(true);
-      navigate("/dashboard");
+      navigate("/student/dashboard");
     } catch (err) {
       console.error(err);
       Toast.error("User Doesnot exist");
