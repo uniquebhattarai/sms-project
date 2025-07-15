@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation,useNavigate } from "react-router-dom";
 import StudentDashboard from "./pages/Student/StudentDashboard";
 import Login from "./pages/Login";
 import Attendance from "./pages/Student/Attendance";
@@ -7,11 +7,14 @@ import PrivateRoute from "./component/PrivateRoute";
 import Navbar from "./component/Navbar";
 import { useState, useEffect } from "react";
 import { getStudent, getPhoto } from "./services/Apis";
+import TeacherDashboard from "./pages/Teacher/TeacherDashboard";
+import AdminDashboard from "./pages/Admin/AdminDashboard";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [fullName, setFullName] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("access"));
+  const [fullName, setFullName] = useState(localStorage.getItem("fullName") || "");
   const [photoUrl, setPhotoUrl] = useState("");
+  const [role, setRole] = useState(localStorage.getItem("role") || "");
 
   const location = useLocation();
 
@@ -21,7 +24,8 @@ function App() {
         const studentData = await getStudent();
         const user = Array.isArray(studentData) ? studentData[0] : studentData;
         setFullName(user?.data?.full_name || "");
-
+        setRole(user?.data?.role || "");
+        
         const photoResponse = await getPhoto();
         if (photoResponse?.profile_picture_url) {
           setPhotoUrl(photoResponse.profile_picture_url);
@@ -50,8 +54,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/student/dashboard" element={<PrivateRoute><StudentDashboard /></PrivateRoute> }/>
-        <Route path="student/attendance"element={<PrivateRoute><Attendance /></PrivateRoute>}/>
+        <Route path="/student/attendance"element={<PrivateRoute><Attendance /></PrivateRoute>}/>
         <Route path="/profile"element={<PrivateRoute><Profile setIsLoggedIn={setIsLoggedIn}setFullName={setFullName}setPhotoUrl={setPhotoUrl}/> </PrivateRoute>}/>
+        <Route path="/teacher/dashboard" element={<PrivateRoute><TeacherDashboard/></PrivateRoute>} />
+        <Route path="/admin/dashboard" element={<PrivateRoute><AdminDashboard/></PrivateRoute>} />
       </Routes>
     </div>
   );

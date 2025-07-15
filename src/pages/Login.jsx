@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Toast } from '../../utils/Toast';
-import { login } from '../services/Apis';
+import { login,getStudent } from '../services/Apis';
 
 function Login({ setIsLoggedIn }) {
   const navigate = useNavigate();
@@ -22,10 +22,20 @@ function Login({ setIsLoggedIn }) {
       localStorage.setItem("access", res.access);
       localStorage.setItem("refresh", res.refresh);
 
+      const studentData = await getStudent();
+     const role = studentData?.data?.role;
+      localStorage.setItem("role",role);
       Toast.success("Logged in successfully!");
-
       setIsLoggedIn(true);
-      navigate("/student/dashboard");
+      if (role === "student") {
+        navigate("/student/dashboard");
+      } else if (role === "admin") {
+        navigate("/admin/dashboard");
+      } else if(role==="teacher") {
+        navigate("/teacher/dashboard");
+      }else{
+        Toast.error("Unknown role");
+      }
     } catch (err) {
       console.error(err);
       Toast.error("User Doesnot exist");
