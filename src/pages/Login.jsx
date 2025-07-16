@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Toast } from '../../utils/Toast';
-import { login,getStudent } from '../services/Apis';
+import { login,getUser } from '../services/Apis';
 
 function Login({ setIsLoggedIn }) {
   const navigate = useNavigate();
@@ -22,8 +22,8 @@ function Login({ setIsLoggedIn }) {
       localStorage.setItem("access", res.access);
       localStorage.setItem("refresh", res.refresh);
 
-      const studentData = await getStudent();
-     const role = studentData?.data?.role;
+      const userData = await getUser();
+     const role = userData?.data?.role;
       localStorage.setItem("role",role);
       Toast.success("Logged in successfully!");
       setIsLoggedIn(true);

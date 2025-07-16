@@ -6,9 +6,13 @@ import Profile from "./pages/Profile";
 import PrivateRoute from "./component/PrivateRoute";
 import Navbar from "./component/Navbar";
 import { useState, useEffect } from "react";
-import { getStudent, getPhoto } from "./services/Apis";
+import { getUser, getPhoto } from "./services/Apis";
 import TeacherDashboard from "./pages/Teacher/TeacherDashboard";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
+import AdminAttendance from "./pages/Admin/AdminAttendance";
+import TeacherAttendance from "./pages/Teacher/TeacherAttendance";
+import TeacherAssignment from "./pages/Teacher/TeacherAssignment";
+import StudentAssignment from "./pages/Student/StudentAssignment";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("access"));
@@ -21,8 +25,8 @@ function App() {
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        const studentData = await getStudent();
-        const user = Array.isArray(studentData) ? studentData[0] : studentData;
+        const userData = await getUser();
+        const user = Array.isArray(userData) ? userData[0] : userData;
         setFullName(user?.data?.full_name || "");
         setRole(user?.data?.role || "");
         
@@ -49,15 +53,21 @@ function App() {
           fullName={fullName}
           photoUrl={photoUrl}
           setIsLoggedIn={setIsLoggedIn}
+          role={role}
         />
       )}
       <Routes>
         <Route path="/" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/student/dashboard" element={<PrivateRoute><StudentDashboard /></PrivateRoute> }/>
         <Route path="/student/attendance"element={<PrivateRoute><Attendance /></PrivateRoute>}/>
+        <Route path="/student/assignment"element={<PrivateRoute><StudentAssignment /></PrivateRoute>}/>
         <Route path="/profile"element={<PrivateRoute><Profile setIsLoggedIn={setIsLoggedIn}setFullName={setFullName}setPhotoUrl={setPhotoUrl}/> </PrivateRoute>}/>
         <Route path="/teacher/dashboard" element={<PrivateRoute><TeacherDashboard/></PrivateRoute>} />
+        <Route path="/teacher/attendance" element={<PrivateRoute><TeacherAttendance/></PrivateRoute>} />
+        <Route path="/teacher/assignment" element={<PrivateRoute><TeacherAssignment/></PrivateRoute>} />
         <Route path="/admin/dashboard" element={<PrivateRoute><AdminDashboard/></PrivateRoute>} />
+        <Route path="/admin/attendance" element={<PrivateRoute><AdminAttendance/></PrivateRoute>} />
+        <Route path="/admin/assignment" element={<PrivateRoute><TeacherAssignment/></PrivateRoute>} />
       </Routes>
     </div>
   );

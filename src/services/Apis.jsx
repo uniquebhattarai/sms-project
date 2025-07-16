@@ -11,14 +11,14 @@ export const login = async (email, password) => {
 
 
 
-export const getStudent = async () => {
+export const getUser = async () => {
   const token = localStorage.getItem("access");
 
   if (!token) {
     throw new Error("No access token found in localStorage.");
   }
 
-  const response = await apiConnector("GET", "/student/", null, {
+  const response = await apiConnector("GET", "/user/", null, {
     Authorization: `Bearer ${token}`,
   });
 

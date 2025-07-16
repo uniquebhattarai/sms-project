@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
-  getStudent,
+  getUser,
   updateUser,
   deleteUser,
   uploadPhoto,
@@ -18,7 +18,7 @@ function Profile({ setIsLoggedIn, setFullName, setPhotoUrl }) {
   useEffect(() => {
     const fetchStudentAndPhoto = async () => {
       try {
-        const data = await getStudent();
+        const data = await getUser();
         const user = Array.isArray(data) ? data[0] : data;
 
         setFormData({

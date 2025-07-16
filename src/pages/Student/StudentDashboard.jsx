@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getStudent,getPhoto } from "../../services/Apis";
+import { getUser,getPhoto } from "../../services/Apis";
 
 function StudentDashboard({ setIsLoggedIn }) {
   const [student, setStudent] = useState(null);
@@ -9,7 +9,7 @@ function StudentDashboard({ setIsLoggedIn }) {
   useEffect(() => {
     const fetchStudent = async () => {
       try {
-        const data = await getStudent();
+        const data = await getUser();
         if (Array.isArray(data) && data.length > 0) {
           setStudent(data[0]);
         } else {
