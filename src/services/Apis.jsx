@@ -104,3 +104,30 @@ export const createAssignment = async(assignmentData)=>{
  }
   throw error;
 }
+
+export const ClassList = async()=>{
+  const token = localStorage.getItem("access");
+  try {
+    const response = await apiConnector("GET","/class_list/",null,{
+      Authorization:`Bearer ${token}`,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Failed to fetch class List:",error);
+    throw error;
+  }
+  
+}
+
+export const SubjectList = async(ClassList)=>{
+  const token = localStorage.getItem("access");
+  try {
+    const response = await apiConnector("GET",`/subject_list/${ClassList}/`,null,{
+      Authorization:`Bearer ${token}`,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Failed to fetch subject List:",error);
+    throw error;
+  }
+}

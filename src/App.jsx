@@ -13,14 +13,22 @@ import AdminAttendance from "./pages/Admin/AdminAttendance";
 import TeacherAttendance from "./pages/Teacher/TeacherAttendance";
 import TeacherAssignment from "./pages/Teacher/TeacherAssignment";
 import StudentAssignment from "./pages/Student/StudentAssignment";
+import AddAssignment from "./pages/Teacher/AddAssignment";
+import { ClassList,SubjectList } from "./services/Apis";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("access"));
   const [fullName, setFullName] = useState(localStorage.getItem("fullName") || "");
   const [photoUrl, setPhotoUrl] = useState("");
   const [role, setRole] = useState(localStorage.getItem("role") || "");
+  const [classes, setClasses] = useState([]);
+    const [subjects, setSubjects] = useState([]);
+    const [selectedClass, setSelectedClass] = useState("");
+    
 
   const location = useLocation();
+
+  
 
   useEffect(() => {
     const fetchUserDetails = async () => {
@@ -44,6 +52,36 @@ function App() {
     }
   }, [isLoggedIn]);
 
+
+  useEffect(() => {
+    const fetchClasses = async () => {
+      try {
+        const data = await ClassList();
+        setClasses(data);
+      } catch (error) {
+        console.error("Error loading class list", error);
+      }
+    };
+
+    fetchClasses();
+  }, []);
+
+  // Fetch subjects when selected class changes
+  useEffect(() => {
+    const fetchSubjects = async () => {
+      if (selectedClass) {
+        try {
+          const subjectData = await SubjectList(selectedClass);
+          setSubjects(subjectData);
+        } catch (error) {
+          console.error("Error loading subject list", error);
+        }
+      }
+    };
+
+    fetchSubjects();
+  }, [selectedClass]);
+
   const showNavbar = location.pathname !== "/";
 
   return (
@@ -64,7 +102,12 @@ function App() {
         <Route path="/profile"element={<PrivateRoute><Profile setIsLoggedIn={setIsLoggedIn}setFullName={setFullName}setPhotoUrl={setPhotoUrl}/> </PrivateRoute>}/>
         <Route path="/teacher/dashboard" element={<PrivateRoute><TeacherDashboard/></PrivateRoute>} />
         <Route path="/teacher/attendance" element={<PrivateRoute><TeacherAttendance/></PrivateRoute>} />
-        <Route path="/teacher/assignment" element={<PrivateRoute><TeacherAssignment/></PrivateRoute>} />
+        <Route path="/teacher/assignment" element={<PrivateRoute><TeacherAssignment  classes={classes}
+            subjects={subjects}
+            selectedClass={selectedClass}
+            setSelectedClass={setSelectedClass} /></PrivateRoute>} />
+        <Route path="/teacher/create/assignment" element={<PrivateRoute><AddAssignment classes={classes}
+            subjects={subjects} selectedClass={selectedClass}   setSelectedClass={setSelectedClass}  /></PrivateRoute>} />
         <Route path="/admin/dashboard" element={<PrivateRoute><AdminDashboard/></PrivateRoute>} />
         <Route path="/admin/attendance" element={<PrivateRoute><AdminAttendance/></PrivateRoute>} />
         <Route path="/admin/assignment" element={<PrivateRoute><TeacherAssignment/></PrivateRoute>} />
