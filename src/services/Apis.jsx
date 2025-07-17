@@ -89,3 +89,18 @@ export const attendanceDetail = async()=>{
   return response.data;
   
 }
+
+
+export const createAssignment = async(assignmentData)=>{
+  const token = localStorage.getItem("access");
+ try {
+  const response = await apiConnector("POST","/assignments/create/",assignmentData,{
+    Authorization: `Bearer ${token}`,
+    "Content-Type":"application/json",
+  });
+  return response.data
+ } catch (error) {
+  console.error("Error creating Assignment:",error)
+ }
+  throw error;
+}
