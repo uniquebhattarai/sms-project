@@ -131,3 +131,16 @@ export const SubjectList = async(ClassList)=>{
     throw error;
   }
 }
+
+export const Assignmentlist = async(ClassList,SubjectList)=>{
+  const token = localStorage.getItem("access");
+  try {
+    const response = await apiConnector("GET",`/teacher_assignment_list/?classlevel=${ClassList}&subject=${SubjectList}`,null,{
+      Authorization:`Bearer ${token}`,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Failed to fetch assignments:",error);
+    throw error;
+  }
+}
