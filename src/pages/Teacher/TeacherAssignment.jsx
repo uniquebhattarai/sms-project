@@ -30,6 +30,11 @@ function TeacherAssignment({
     }
   };
 
+  const clickAssignment=(assignment)=>{
+    navigate(`/teacher/assignment/details/${assignment.id}`,{
+      state:{assignment},
+    });
+  }
   const clickhandler = () => {
     navigate("/teacher/create/assignment");
   };
@@ -217,13 +222,13 @@ function TeacherAssignment({
                   
                   return (
                     <div
-                      key={item.id || idx}
-                      className="border border-gray-200 rounded-xl p-6 bg-white hover:shadow-lg transition-all duration-200 hover:border-blue-300"
+                      key={item.id || idx} onClick={()=> clickAssignment(item)  } 
+                      className="border border-gray-200 rounded-xl p-6 bg-white hover:shadow-lg transition-all duration-200 hover:border-blue-300 cursor-pointer "
                     >
                       <div className="flex justify-between items-start mb-4">
                         <div className="flex-1">
                           <h3 className="text-xl font-bold text-gray-800 mb-2">{item.title}</h3>
-                          <p className="text-gray-600 mb-3 leading-relaxed">{item.assignment}</p>
+                          <p className="text-gray-600 mb-3 leading-relaxed">{item.assignment.slice(0,50)}.....</p>
                         </div>
                         <div className={`px-3 py-1 rounded-full text-sm font-medium ${deadlineStatus.color}`}>
                           {deadlineStatus.text}

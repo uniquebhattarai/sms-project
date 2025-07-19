@@ -15,6 +15,7 @@ import TeacherAssignment from "./pages/Teacher/TeacherAssignment";
 import StudentAssignment from "./pages/Student/StudentAssignment";
 import AddAssignment from "./pages/Teacher/AddAssignment";
 import { ClassList,SubjectList } from "./services/Apis";
+import AssignmentDetails from "./pages/Teacher/AssignmentDetails";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("access"));
@@ -108,6 +109,7 @@ function App() {
             setSelectedClass={setSelectedClass} /></PrivateRoute>} />
         <Route path="/teacher/create/assignment" element={<PrivateRoute><AddAssignment classes={classes}
             subjects={subjects} selectedClass={selectedClass}   setSelectedClass={setSelectedClass}  /></PrivateRoute>} />
+          <Route path="/teacher/assignment/details/:id" element={<PrivateRoute><AssignmentDetails/></PrivateRoute>}/>
         <Route path="/admin/dashboard" element={<PrivateRoute><AdminDashboard/></PrivateRoute>} />
         <Route path="/admin/attendance" element={<PrivateRoute><AdminAttendance/></PrivateRoute>} />
         <Route path="/admin/assignment" element={<PrivateRoute><TeacherAssignment/></PrivateRoute>} />

@@ -1,4 +1,5 @@
 
+import { data } from "react-router-dom";
 import { apiConnector } from "./ApiConnector";
 
 export const login = async (email, password) => {
@@ -142,5 +143,42 @@ export const Assignmentlist = async(ClassList,SubjectList)=>{
   } catch (error) {
     console.error("Failed to fetch assignments:",error);
     throw error;
+  }
+}
+
+export const UpdateAssignment = async(id,data)=>{
+  const token = localStorage.getItem("access");
+  try {
+    const response = await apiConnector("PUT",`/assignments/${id}/update/`,data,{
+      Authorization:`Bearer ${token}`,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error while updating assignment",error);
+    throw error;
+  }
+}
+export const getAssignment = async(id)=>{
+  const token = localStorage.getItem("access");
+  try {
+    const response = await apiConnector("GET",`/get_assignment_by_id/${id}/`,null,{
+      Authorization:`Bearer ${token}`,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error while updating assignment",error);
+    throw error;
+  }
+}
+
+export const deleteAssignment = async(id)=>{
+  const token = localStorage.getItem("access");
+  try {
+    const response = await apiConnector("DELETE",`/assignments/${id}/delete/`,null,{
+      Authorization:`Bearer ${token}`,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error while Deleting assignment",error);
   }
 }
