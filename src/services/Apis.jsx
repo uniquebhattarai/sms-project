@@ -182,3 +182,15 @@ export const deleteAssignment = async(id)=>{
     console.error("Error while Deleting assignment",error);
   }
 }
+
+export const studentAssignment = async()=>{
+  const token = localStorage.getItem("access");
+  try {
+    const response = await apiConnector("GET","/assignments/",null,{
+      Authorization:`Bearer ${token}`,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error while Fetching assignment",error);
+  }
+}

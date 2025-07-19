@@ -16,6 +16,7 @@ import StudentAssignment from "./pages/Student/StudentAssignment";
 import AddAssignment from "./pages/Teacher/AddAssignment";
 import { ClassList,SubjectList } from "./services/Apis";
 import AssignmentDetails from "./pages/Teacher/AssignmentDetails";
+import ViewAssignment from "./pages/Student/ViewAssignment";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("access"));
@@ -100,6 +101,7 @@ function App() {
         <Route path="/student/dashboard" element={<PrivateRoute><StudentDashboard /></PrivateRoute> }/>
         <Route path="/student/attendance"element={<PrivateRoute><Attendance /></PrivateRoute>}/>
         <Route path="/student/assignment"element={<PrivateRoute><StudentAssignment /></PrivateRoute>}/>
+        <Route path="/student/assignment/details/:id" element={<PrivateRoute><ViewAssignment/></PrivateRoute>}/>
         <Route path="/profile"element={<PrivateRoute><Profile setIsLoggedIn={setIsLoggedIn}setFullName={setFullName}setPhotoUrl={setPhotoUrl}/> </PrivateRoute>}/>
         <Route path="/teacher/dashboard" element={<PrivateRoute><TeacherDashboard/></PrivateRoute>} />
         <Route path="/teacher/attendance" element={<PrivateRoute><TeacherAttendance/></PrivateRoute>} />
