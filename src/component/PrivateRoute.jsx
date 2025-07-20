@@ -1,23 +1,17 @@
 import React from 'react';
-import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 
-export default function PrivateRoute({ children }) {
-  const [isChecking, setIsChecking] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+export default function PrivateRoute({ children , expectedRole}) {
 
-  useEffect(() => {
-    const access = localStorage.getItem("access");
+  const access = localStorage.getItem("access");
+    const role = localStorage.getItem("role");
 
-    if (access) {
-      setIsAuthenticated(true);
+    if (!access) {
+      return <Navigate to="/"/>
     }
-    setIsChecking(false); 
-  }, []);
+     if(expectedRole && role !== expectedRole){
+      return<Navigate to={`/${role}/dashboard`}/>
+     }
 
-  if (isChecking) {
-    return null;
-  }
-
-  return isAuthenticated ? children : <Navigate to="/" replace />;
+ return children;
 }

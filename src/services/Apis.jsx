@@ -166,7 +166,7 @@ export const getAssignment = async(id)=>{
     });
     return response.data;
   } catch (error) {
-    console.error("Error while updating assignment",error);
+    console.error("Error while fetching assignment list",error);
     throw error;
   }
 }
@@ -192,5 +192,30 @@ export const studentAssignment = async()=>{
     return response.data;
   } catch (error) {
     console.error("Error while Fetching assignment",error);
+  }
+}
+
+export const getAttendancelist = async(id)=>{
+  const token = localStorage.getItem("access");
+  try {
+    const response = await apiConnector("GET",`/get_attendance_detail_by_id/${id}/`,null,{
+      Authorization:`Bearer ${token}`,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error while fetching attendance list",error);
+    throw error;
+  }
+}
+export const getStudentByClass = async(id)=>{
+  const token = localStorage.getItem("access");
+  try {
+    const response = await apiConnector("GET",`/get_student_by_class/${id}`,null,{
+      Authorization:`Bearer ${token}`,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error while fetching Student list",error);
+    throw error;
   }
 }
