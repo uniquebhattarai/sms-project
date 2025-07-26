@@ -63,7 +63,7 @@ function TeacherAttendance({classes,selectedClass,setSelectedClass}) {
                     Searching...
                   </span>
                 ) : (
-                  "Search Assignments"
+                  "Search Attendance"
                 )}
               </button>
 
