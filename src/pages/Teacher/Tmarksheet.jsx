@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { FiClipboard } from "react-icons/fi";
 import { apiConnector } from "../../services/ApiConnector";
 import { Toast } from "../../../utils/Toast";
@@ -12,7 +11,8 @@ function Tmarksheet() {
   const [performance, setPerformance] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate();
+  const [editing, setEditing] = useState(null);
+  const [formData, setFormData] = useState({ marks: "", full_marks: "" });
 
   // Fetch classes
   const fetchClasses = async () => {
@@ -53,6 +53,31 @@ function Tmarksheet() {
       Toast.error("Failed to fetch performance");
     } finally {
       setLoading(false);
+    }
+  };
+
+  // Handle edit
+  const handleEdit = (mark) => {
+    setEditing(mark.id); // marksheet row id from backend
+    setFormData({
+      marks: mark.marks,
+      full_marks: mark.full_marks,
+    });
+  };
+
+  // Handle update
+  const handleUpdate = async () => {
+    try {
+      await apiConnector("PUT", `/marks/update/${editing}/`, {
+        marks: formData.marks,
+        full_marks: formData.full_marks,
+      });
+      Toast.success("Updated successfully ✅");
+      setEditing(null);
+      // re-fetch performance after update
+      searchPerformance();
+    } catch {
+      Toast.error("Update failed ❌");
     }
   };
 
@@ -122,7 +147,7 @@ function Tmarksheet() {
               <FiClipboard /> Marksheet
             </h2>
             <button
-              onClick={() => navigate("/teacher/create/marksheet")}
+              onClick={() => window.location.href = "/teacher/create/marksheet"}
               className="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg"
             >
               + Add Marksheet
@@ -135,40 +160,91 @@ function Tmarksheet() {
                 {loading ? "Loading..." : "Select student and search to view marksheet"}
               </p>
             ) : (
-              <div
-                onClick={() =>
-                  navigate(`/teacher/marksheet/details/${performance.student_id}`, {
-                    state: { performance },
-                  })
-                }
-                className="border p-4 rounded-lg hover:shadow cursor-pointer"
-              >
-                <div className="flex justify-between items-center">
-                  <div>
-                    <h3 className="font-bold">
-                      Student ID: {performance.student_id}
-                    </h3>
-                    <p className="text-sm text-gray-600">
-                      Subjects: {performance.total_subjects} | Exams: {performance.total_exams}
-                    </p>
-                  </div>
-                  <span className="px-3 py-1 rounded-full bg-green-100 text-green-700 font-medium">
-                    Avg: {performance.average_percentage}%
-                  </span>
-                </div>
-                <div className="mt-3 grid gap-2">
-                  {performance.subject_wise_stats.map((sub, i) => (
-                    <div
-                      key={i}
-                      className="flex justify-between items-center border p-2 rounded-lg"
-                    >
-                      <span className="font-medium">{sub.subject__name}</span>
-                      <span className="text-sm text-gray-600">
-                        {sub.avg_marks} marks ({sub.avg_percentage}%)
-                      </span>
-                    </div>
-                  ))}
-                </div>
+              <div className="border p-4 rounded-lg">
+                <h3 className="font-bold">
+                  Student: {performance.data?.student?.full_name || performance.student_id}
+                </h3>
+                <p className="text-sm text-gray-600">
+                  Subjects: {performance.total_subjects} | Exams: {performance.total_exams}
+                </p>
+                <p className="text-sm text-gray-600 mb-3">
+                  Average: {performance.average_percentage}%
+                </p>
+
+                <table className="w-full border mt-2">
+                  <thead>
+                    <tr className="bg-gray-100">
+                      <th className="border px-2 py-1">Subject</th>
+                      <th className="border px-2 py-1">Exam</th>
+                      <th className="border px-2 py-1">Marks</th>
+                      <th className="border px-2 py-1">Full Marks</th>
+                      <th className="border px-2 py-1">Date</th>
+                      <th className="border px-2 py-1">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {performance.marksheets.map((mark) => (
+                      <tr key={mark.id}>
+                        <td className="border px-2 py-1">{mark.subject.name}</td>
+                        <td className="border px-2 py-1">{mark.examtype.name}</td>
+
+                        {editing === mark.id ? (
+                          <>
+                            <td className="border px-2 py-1">
+                              <input
+                                type="text"
+                                value={formData.marks}
+                                onChange={(e) =>
+                                  setFormData({ ...formData, marks: e.target.value })
+                                }
+                                className="border px-2 py-1 w-20"
+                              />
+                            </td>
+                            <td className="border px-2 py-1">
+                              <input
+                                type="text"
+                                value={formData.full_marks}
+                                onChange={(e) =>
+                                  setFormData({ ...formData, full_marks: e.target.value })
+                                }
+                                className="border px-2 py-1 w-20"
+                              />
+                            </td>
+                            <td className="border px-2 py-1">{mark.date}</td>
+                            <td className="border px-2 py-1">
+                              <button
+                                onClick={handleUpdate}
+                                className="bg-green-500 text-white px-3 py-1 rounded mr-2"
+                              >
+                                Save
+                              </button>
+                              <button
+                                onClick={() => setEditing(null)}
+                                className="bg-gray-500 text-white px-3 py-1 rounded"
+                              >
+                                Cancel
+                              </button>
+                            </td>
+                          </>
+                        ) : (
+                          <>
+                            <td className="border px-2 py-1">{mark.marks}</td>
+                            <td className="border px-2 py-1">{mark.full_marks}</td>
+                            <td className="border px-2 py-1">{mark.date}</td>
+                            <td className="border px-2 py-1">
+                              <button
+                                onClick={() => handleEdit(mark)}
+                                className="bg-blue-500 text-white px-3 py-1 rounded"
+                              >
+                                Edit
+                              </button>
+                            </td>
+                          </>
+                        )}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             )}
           </div>
