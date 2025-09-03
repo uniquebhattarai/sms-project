@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { RxHamburgerMenu } from "react-icons/rx";
 import {
   FiLogOut,
-  FiUser,
+  FiClipboard,
   FiCalendar,
   FiFileText,
   FiTrello,
@@ -237,6 +237,14 @@ export function Navbar({ setIsLoggedIn, fullName, photoUrl, role }) {
                     >
                       <FiFileText className="w-5 h-5" />
                       Check Assignments
+                    </Link>
+                    <Link
+                      to="/teacher/marksheet"
+                      className="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-blue-50"
+                      onClick={toggleMenu}
+                    >
+                      <FiClipboard className="w-5 h-5" />
+                      MarkSheet
                     </Link>
                   </>
                 )}

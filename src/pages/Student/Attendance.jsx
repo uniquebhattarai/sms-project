@@ -21,7 +21,7 @@ const BS_MONTH_NAMES = [
 const Attendance = () => {
   const [attendance, setAttendance] = useState({});
   const [year, setYear] = useState(2082);
-  const [month, setMonth] = useState(3);
+  const [month, setMonth] = useState(5);
   const [present, setPresent] = useState(0);
   const [absent, setAbsent] = useState(0);
 
