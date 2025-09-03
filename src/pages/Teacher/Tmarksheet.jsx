@@ -1,33 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Toast } from "../../../utils/Toast";
-import { apiConnector } from "../../services/ApiConnector";
 import { FiClipboard } from "react-icons/fi";
+import { apiConnector } from "../../services/ApiConnector";
+import { Toast } from "../../../utils/Toast";
 
 function Tmarksheet() {
-  const [marks, setMarks] = useState([]);
-  const [examTypes, setExamTypes] = useState([]);
   const [classes, setClasses] = useState([]);
-  const [subjects, setSubjects] = useState([]);
   const [students, setStudents] = useState([]);
-
-  const [selectedExam, setSelectedExam] = useState("");
   const [selectedClass, setSelectedClass] = useState("");
-  const [selectedSubject, setSelectedSubject] = useState("");
   const [selectedStudent, setSelectedStudent] = useState("");
-
+  const [performance, setPerformance] = useState(null);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
-  // Fetch exam types
-  const fetchExamTypes = async () => {
-    try {
-      const res = await apiConnector("GET", "/exam-types/");
-      if (res?.data?.data) setExamTypes(res.data.data);
-    } catch {
-      Toast.error("Failed to fetch exam types");
-    }
-  };
+  const navigate = useNavigate();
 
   // Fetch classes
   const fetchClasses = async () => {
@@ -36,16 +21,6 @@ function Tmarksheet() {
       if (res?.data) setClasses(res.data);
     } catch {
       Toast.error("Failed to fetch classes");
-    }
-  };
-
-  // Fetch subjects by class
-  const fetchSubjects = async (classId) => {
-    try {
-      const res = await apiConnector("GET", `/subject_list/${classId}/`);
-      if (res?.data) setSubjects(res.data);
-    } catch {
-      Toast.error("Failed to fetch subjects");
     }
   };
 
@@ -59,51 +34,31 @@ function Tmarksheet() {
     }
   };
 
-  // Fetch marks by class
-  const fetchMarks = async (classId) => {
+  // Search performance of student
+  const searchPerformance = async () => {
+    if (!selectedStudent) {
+      Toast.error("Please select a student");
+      return;
+    }
     try {
       setLoading(true);
-      const res = await apiConnector("GET", `/marks/class/${classId}/`);
+      const res = await apiConnector("GET", `/performance/${selectedStudent}/`);
       if (res?.data?.data) {
-        setMarks(res.data.data);
+        setPerformance(res.data.data);
       } else {
-        setMarks([]);
+        setPerformance(null);
+        Toast.error("No performance data found");
       }
     } catch {
-      Toast.error("Failed to fetch marks");
+      Toast.error("Failed to fetch performance");
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchExamTypes();
     fetchClasses();
   }, []);
-
-  // Handle class change → fetch subjects + students + marks
-  const handleClassChange = (classId) => {
-    setSelectedClass(classId);
-    fetchSubjects(classId);
-    fetchStudents(classId);
-    fetchMarks(classId);
-  };
-
-  const clickMarksheet = (mark) => {
-    navigate(`/teacher/marksheet/details/${mark.id}`, { state: { mark } });
-  };
-
-  const clickHandler = () => {
-    navigate("/teacher/create/marksheet");
-  };
-
-  const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-100 py-8 px-4">
@@ -114,41 +69,26 @@ function Tmarksheet() {
           <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-teal-600">
             Marksheet Management
           </h1>
-          <p className="text-gray-600">Filter and manage student marksheets</p>
+          <p className="text-gray-600">Search and manage student marksheets</p>
         </div>
 
         {/* Filters */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 bg-white p-4 rounded-xl shadow mb-6">
-          <select
-            className="p-2 border rounded"
-            value={selectedExam}
-            onChange={(e) => setSelectedExam(e.target.value)}
-          >
-            <option value="">Select Exam Type</option>
-            {examTypes.map((exam) => (
-              <option key={exam.id} value={exam.id}>{exam.name}</option>
-            ))}
-          </select>
-
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-white p-4 rounded-xl shadow mb-6">
           <select
             className="p-2 border rounded"
             value={selectedClass}
-            onChange={(e) => handleClassChange(e.target.value)}
+            onChange={(e) => {
+              setSelectedClass(e.target.value);
+              fetchStudents(e.target.value);
+              setSelectedStudent("");
+              setPerformance(null);
+            }}
           >
             <option value="">Select Class</option>
             {classes.map((cls) => (
-              <option key={cls.id} value={cls.id}>Class {cls.level}</option>
-            ))}
-          </select>
-
-          <select
-            className="p-2 border rounded"
-            value={selectedSubject}
-            onChange={(e) => setSelectedSubject(e.target.value)}
-          >
-            <option value="">Select Subject</option>
-            {subjects.map((sub) => (
-              <option key={sub.id} value={sub.id}>{sub.name}</option>
+              <option key={cls.id} value={cls.id}>
+                Class {cls.level}
+              </option>
             ))}
           </select>
 
@@ -156,22 +96,33 @@ function Tmarksheet() {
             className="p-2 border rounded"
             value={selectedStudent}
             onChange={(e) => setSelectedStudent(e.target.value)}
+            disabled={!selectedClass}
           >
             <option value="">Select Student</option>
             {students.map((stu) => (
-              <option key={stu.id} value={stu.id}>{stu.full_name}</option>
+              <option key={stu.id} value={stu.id}>
+                {stu.full_name}
+              </option>
             ))}
           </select>
+
+          <button
+            onClick={searchPerformance}
+            className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700"
+            disabled={loading}
+          >
+            {loading ? "Searching..." : "Search"}
+          </button>
         </div>
 
         {/* Results Section */}
         <div className="bg-white/90 shadow rounded-xl border overflow-hidden">
           <div className="bg-gradient-to-r from-green-600 to-teal-600 text-white p-4 flex justify-between items-center">
             <h2 className="text-xl font-bold flex items-center gap-2">
-              <FiClipboard /> Marksheet List
+              <FiClipboard /> Marksheet
             </h2>
             <button
-              onClick={clickHandler}
+              onClick={() => navigate("/teacher/create/marksheet")}
               className="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg"
             >
               + Add Marksheet
@@ -179,44 +130,50 @@ function Tmarksheet() {
           </div>
 
           <div className="p-4">
-            {loading ? (
-              <p className="text-gray-500">Loading...</p>
-            ) : marks.length === 0 ? (
-              <p className="text-gray-500 text-center py-6">No marksheets found</p>
+            {!performance ? (
+              <p className="text-gray-500 text-center py-6">
+                {loading ? "Loading..." : "Select student and search to view marksheet"}
+              </p>
             ) : (
-              <div className="grid gap-3">
-                {marks
-                  .filter((m) =>
-                    (!selectedExam || m.examtype.id == selectedExam) &&
-                    (!selectedSubject || m.subject.id == selectedSubject) &&
-                    (!selectedStudent || m.student.id == selectedStudent)
-                  )
-                  .map((item) => (
+              <div
+                onClick={() =>
+                  navigate(`/teacher/marksheet/details/${performance.student_id}`, {
+                    state: { performance },
+                  })
+                }
+                className="border p-4 rounded-lg hover:shadow cursor-pointer"
+              >
+                <div className="flex justify-between items-center">
+                  <div>
+                    <h3 className="font-bold">
+                      Student ID: {performance.student_id}
+                    </h3>
+                    <p className="text-sm text-gray-600">
+                      Subjects: {performance.total_subjects} | Exams: {performance.total_exams}
+                    </p>
+                  </div>
+                  <span className="px-3 py-1 rounded-full bg-green-100 text-green-700 font-medium">
+                    Avg: {performance.average_percentage}%
+                  </span>
+                </div>
+                <div className="mt-3 grid gap-2">
+                  {performance.subject_wise_stats.map((sub, i) => (
                     <div
-                      key={item.id}
-                      onClick={() => clickMarksheet(item)}
-                      className="border p-4 rounded-lg hover:shadow cursor-pointer"
+                      key={i}
+                      className="flex justify-between items-center border p-2 rounded-lg"
                     >
-                      <div className="flex justify-between items-center">
-                        <div>
-                          <h3 className="font-bold">{item.student.full_name} (Class {item.classlevel.level})</h3>
-                          <p className="text-sm text-gray-600">
-                            {item.subject.name} - {item.examtype.name}
-                          </p>
-                        </div>
-                        <span className="px-3 py-1 rounded-full bg-green-100 text-green-700 font-medium">
-                          {item.percentage}%
-                        </span>
-                      </div>
-                      <p className="text-sm text-gray-500 mt-2">
-                        Marks: {item.marks}/{item.full_marks} | Date: {formatDate(item.date)}
-                      </p>
+                      <span className="font-medium">{sub.subject__name}</span>
+                      <span className="text-sm text-gray-600">
+                        {sub.avg_marks} marks ({sub.avg_percentage}%)
+                      </span>
                     </div>
                   ))}
+                </div>
               </div>
             )}
           </div>
         </div>
+
       </div>
     </div>
   );
