@@ -162,7 +162,7 @@ function Tmarksheet() {
             ) : (
               <div className="border p-4 rounded-lg">
                 <h3 className="font-bold">
-                  Student: {performance.data?.student?.full_name || performance.student_id}
+                  Student: {performance.student_name}
                 </h3>
                 <p className="text-sm text-gray-600">
                   Subjects: {performance.total_subjects} | Exams: {performance.total_exams}
