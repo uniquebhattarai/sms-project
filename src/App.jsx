@@ -20,6 +20,7 @@ import ViewAssignment from "./pages/Student/ViewAssignment";
 import Tmarksheet from "./pages/Teacher/Tmarksheet";
 import AddMarksheet from "./pages/Teacher/AddMarksheet";
 import ViewMarksheet from "./pages/Student/ViewMarksheet";
+import ManageUser from "./pages/Admin/ManageUser";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("access"));
@@ -110,18 +111,23 @@ function App() {
         <Route path="/teacher/dashboard" element={<PrivateRoute expectedRole="teacher" ><TeacherDashboard/></PrivateRoute>} />
         <Route path="/teacher/attendance" element={<PrivateRoute expectedRole="teacher" ><TeacherAttendance classes={classes}
             selectedClass={selectedClass} setSelectedClass={setSelectedClass} /></PrivateRoute>} />
-        <Route path="/teacher/assignment" element={<PrivateRoute expectedRole="teacher" ><TeacherAssignment  classes={classes}
+        <Route path="/teacher/assignment" element={<PrivateRoute expectedRole="teacher" ><TeacherAssignment  role="teacher"  classes={classes}
             subjects={subjects}
             selectedClass={selectedClass}
             setSelectedClass={setSelectedClass} /></PrivateRoute>} />
-        <Route path="/teacher/create/assignment" element={<PrivateRoute expectedRole="teacher" ><AddAssignment classes={classes}
+        <Route path="/teacher/create/assignment" element={<PrivateRoute expectedRole="teacher" ><AddAssignment  role="teacher" classes={classes}
             subjects={subjects} selectedClass={selectedClass}   setSelectedClass={setSelectedClass}  /></PrivateRoute>} />
           <Route path="/teacher/assignment/details/:id" element={<PrivateRoute expectedRole="teacher" ><AssignmentDetails/></PrivateRoute>}/>
           <Route path="/teacher/marksheet" element={<PrivateRoute expectedRole="teacher" ><Tmarksheet /></PrivateRoute>}/>
           <Route path="/teacher/create/marksheet" element={<PrivateRoute expectedRole="teacher" ><AddMarksheet /></PrivateRoute>}/>
         <Route path="/admin/dashboard" element={<PrivateRoute expectedRole="admin" ><AdminDashboard/></PrivateRoute>} />
+        <Route path="/admin/manageuser" element={<PrivateRoute expectedRole="admin" ><ManageUser/></PrivateRoute>} />
         <Route path="/admin/attendance" element={<PrivateRoute expectedRole="admin" ><AdminAttendance/></PrivateRoute>} />
-        <Route path="/admin/assignment" element={<PrivateRoute expectedRole="admin" ><TeacherAssignment/></PrivateRoute>} />
+        <Route path="/admin/assignment" element={<PrivateRoute expectedRole="admin" ><TeacherAssignment  role="admin" classes={classes}
+            subjects={subjects}
+            selectedClass={selectedClass}    setSelectedClass={setSelectedClass} /></PrivateRoute>} />
+            <Route path="/admin/create/assignment" element={<PrivateRoute expectedRole="admin" ><AddAssignment  role="admin" classes={classes}
+            subjects={subjects} selectedClass={selectedClass}   setSelectedClass={setSelectedClass}  /></PrivateRoute>} />
       </Routes>
     </div>
   );

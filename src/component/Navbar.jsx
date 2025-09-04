@@ -8,6 +8,7 @@ import {
   FiFileText,
   FiTrello,
   FiClock,
+  FiUser
 } from "react-icons/fi";
 import { Toast } from "../../utils/Toast";
 
@@ -275,6 +276,22 @@ export function Navbar({ setIsLoggedIn, fullName, photoUrl, role }) {
                     >
                       <FiFileText className="w-5 h-5" />
                       Manage Assignment
+                    </Link>
+                     <Link
+                      to="/admin/marksheet"
+                      className="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-blue-50"
+                      onClick={toggleMenu}
+                    >
+                      <FiClipboard className="w-5 h-5" />
+                      Manage Marksheet
+                    </Link>
+                     <Link
+                      to="/admin/manageuser"
+                      className="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-blue-50"
+                      onClick={toggleMenu}
+                    >
+                      < FiUser className="w-5 h-5" />
+                      Manage User
                     </Link>
                   </>
                 )}
