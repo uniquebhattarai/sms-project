@@ -19,6 +19,7 @@ import AssignmentDetails from "./pages/Teacher/AssignmentDetails";
 import ViewAssignment from "./pages/Student/ViewAssignment";
 import Tmarksheet from "./pages/Teacher/Tmarksheet";
 import AddMarksheet from "./pages/Teacher/AddMarksheet";
+import ViewMarksheet from "./pages/Student/ViewMarksheet";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("access"));
@@ -104,6 +105,7 @@ function App() {
         <Route path="/student/attendance"element={<PrivateRoute expectedRole="student" ><Attendance /></PrivateRoute>}/>
         <Route path="/student/assignment"element={<PrivateRoute expectedRole="student" ><StudentAssignment /></PrivateRoute>}/>
         <Route path="/student/assignment/details/:id" element={<PrivateRoute expectedRole="student" ><ViewAssignment/></PrivateRoute>}/>
+        <Route path="/student/grades" element={<PrivateRoute expectedRole="student" ><ViewMarksheet/></PrivateRoute>}/>
         <Route path="/profile"element={<PrivateRoute><Profile setIsLoggedIn={setIsLoggedIn}setFullName={setFullName}setPhotoUrl={setPhotoUrl}/> </PrivateRoute>}/>
         <Route path="/teacher/dashboard" element={<PrivateRoute expectedRole="teacher" ><TeacherDashboard/></PrivateRoute>} />
         <Route path="/teacher/attendance" element={<PrivateRoute expectedRole="teacher" ><TeacherAttendance classes={classes}

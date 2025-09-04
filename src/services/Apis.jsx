@@ -219,3 +219,22 @@ export const getStudentByClass = async(id)=>{
     throw error;
   }
 }
+
+export const getPerformance = async (studentId) => {
+  const token = localStorage.getItem("access");
+
+  if (!token) {
+    throw new Error("No access token found in localStorage.");
+  }
+
+  const response = await apiConnector(
+    "GET",
+    `/performance/${studentId}/`,
+    null,
+    {
+      Authorization: `Bearer ${token}`,
+    }
+  );
+
+  return response.data;
+};
