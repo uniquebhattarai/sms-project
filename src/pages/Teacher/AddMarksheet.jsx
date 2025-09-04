@@ -4,7 +4,7 @@ import { apiConnector } from "../../services/ApiConnector";
 import { useNavigate } from "react-router-dom";
 import { FiSave, FiArrowLeft, FiBookOpen, FiUsers, FiFileText, FiAward, FiTarget } from "react-icons/fi";
 
-function AddMarksheet() {
+function AddMarksheet({ role = "teacher" }) {
   const [examTypes, setExamTypes] = useState([]);
   const [classes, setClasses] = useState([]);
   const [subjects, setSubjects] = useState([]);
@@ -104,7 +104,7 @@ function AddMarksheet() {
 
       if (res?.status === 201) {
         Toast.success("Marksheet added successfully!");
-        navigate("/teacher/marksheet");
+        navigate(role==="teacher"?"/teacher/marksheet":"/admin/marksheet");
       } else {
         Toast.error("Failed to add marksheet");
       }
@@ -127,7 +127,7 @@ function AddMarksheet() {
         {/* Header */}
         <div className="flex items-center gap-4">
           <button
-            onClick={() => navigate("/teacher/marksheet")}
+            onClick={() => navigate( role="teacher"?"/teacher/marksheet":"/admin/marksheet")}
             className="p-2 bg-white/70 backdrop-blur-sm border border-white/20 rounded-xl shadow-lg hover:bg-white/90 transition-all duration-200"
           >
             <FiArrowLeft className="w-5 h-5 text-slate-600" />
@@ -300,7 +300,7 @@ function AddMarksheet() {
               <div className="flex gap-4 pt-4">
                 <button
                   type="button"
-                  onClick={() => navigate("/teacher/marksheet")}
+                  onClick={() => navigate( role==="teacher"?"/teacher/marksheet":"/admin/marsheet")}
                   className="flex-1 px-6 py-3 bg-slate-200 text-slate-700 rounded-xl hover:bg-slate-300 transition-all duration-200"
                 >
                   Cancel

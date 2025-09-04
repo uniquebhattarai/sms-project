@@ -7,7 +7,7 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import { Toast } from "../../../utils/Toast";
 
-function AssignmentDetails() {
+function AssignmentDetails({ role = "teacher" }) {
   const { id } = useParams();
   const [assignmentData, setAssignmentData] = useState(null);
   const [Updated, setupdate] = useState(false);
@@ -50,7 +50,7 @@ function AssignmentDetails() {
     try {
       await deleteAssignment(id);
       Toast.success("Assignment Deleted Successfully");
-      navigate("/teacher/assignment");
+      navigate(role==="teacher"?"/teacher/assignment":"/admin/assignment");
     } catch (error) {
       console.error("Error while deleting Assignment",error);
       Toast.error("Error while deleting Assignment");
@@ -80,7 +80,7 @@ function AssignmentDetails() {
         {/* Header */}
         <div className="mb-8">
           <button
-            onClick={() => navigate("/teacher/assignment")}
+            onClick={() => navigate(role==="teacher"?"/teacher/assignment":"/admin/assignment")}
             className="flex items-center text-slate-600 hover:text-blue-600 transition-colors duration-200 mb-4 group"
           >
             <svg className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">

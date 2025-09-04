@@ -3,7 +3,7 @@ import { FiClipboard, FiSearch, FiEdit2, FiSave, FiX, FiPlus } from "react-icons
 import { apiConnector } from "../../services/ApiConnector";
 import { Toast } from "../../../utils/Toast";
 
-function Tmarksheet() {
+function Tmarksheet({ role = "teacher"}) {
   const [classes, setClasses] = useState([]);
   const [students, setStudents] = useState([]);
   const [selectedClass, setSelectedClass] = useState("");
@@ -156,7 +156,7 @@ function Tmarksheet() {
             <div className="space-y-2">
               <label className="text-sm font-medium text-transparent">Quick Action</label>
               <button
-                onClick={() => window.location.href = "/teacher/create/marksheet"}
+                onClick={() => window.location.href = role==="teacher"? "/teacher/create/marksheet":"/admin/create/marksheet"}
                 className="w-full bg-white border-2 border-dashed border-slate-300 text-slate-600 px-6 py-3 rounded-xl hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50/50 transition-all duration-200 flex items-center justify-center gap-2"
               >
                 <FiPlus className="w-4 h-4" />

@@ -117,9 +117,12 @@ function App() {
             setSelectedClass={setSelectedClass} /></PrivateRoute>} />
         <Route path="/teacher/create/assignment" element={<PrivateRoute expectedRole="teacher" ><AddAssignment  role="teacher" classes={classes}
             subjects={subjects} selectedClass={selectedClass}   setSelectedClass={setSelectedClass}  /></PrivateRoute>} />
-          <Route path="/teacher/assignment/details/:id" element={<PrivateRoute expectedRole="teacher" ><AssignmentDetails/></PrivateRoute>}/>
-          <Route path="/teacher/marksheet" element={<PrivateRoute expectedRole="teacher" ><Tmarksheet /></PrivateRoute>}/>
-          <Route path="/teacher/create/marksheet" element={<PrivateRoute expectedRole="teacher" ><AddMarksheet /></PrivateRoute>}/>
+          <Route path="/teacher/assignment/details/:id" element={<PrivateRoute expectedRole="teacher" ><AssignmentDetails role="teacher" /></PrivateRoute>}/>
+          <Route path="/admin/assignment/details/:id" element={<PrivateRoute expectedRole="admin" ><AssignmentDetails role="admin" /></PrivateRoute>}/>
+          <Route path="/teacher/marksheet" element={<PrivateRoute expectedRole="teacher" ><Tmarksheet  role="teacher" /></PrivateRoute>}/>
+          <Route path="/teacher/create/marksheet" element={<PrivateRoute expectedRole="teacher" ><AddMarksheet  role="teacher" /></PrivateRoute>}/>
+          <Route path="/admin/marksheet" element={<PrivateRoute expectedRole="admin" ><Tmarksheet  role="admin" /></PrivateRoute>}/>
+          <Route path="/admin/create/marksheet" element={<PrivateRoute expectedRole="admin" ><AddMarksheet  role="admin" /></PrivateRoute>}/>
         <Route path="/admin/dashboard" element={<PrivateRoute expectedRole="admin" ><AdminDashboard/></PrivateRoute>} />
         <Route path="/admin/manageuser" element={<PrivateRoute expectedRole="admin" ><ManageUser/></PrivateRoute>} />
         <Route path="/admin/attendance" element={<PrivateRoute expectedRole="admin" ><AdminAttendance/></PrivateRoute>} />
