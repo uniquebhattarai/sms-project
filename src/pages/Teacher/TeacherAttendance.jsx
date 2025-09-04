@@ -1,13 +1,32 @@
-import React from 'react'
-import { getAttendancelist, getStudentByClass } from '../../services/Apis'
-import { useState } from 'react';
-import { Toast } from '../../../utils/Toast';
-import { FiUsers, FiSearch, FiUser, FiEye, FiUserCheck, FiCalendar } from 'react-icons/fi';
+import React, { useEffect, useState } from "react";
+import { ClassList } from "../../services/Apis";
+import { apiConnector } from "../../services/ApiConnector";
+import { Toast } from "../../../utils/Toast";
+import { FiUsers, FiSearch, FiCalendar, FiEye, FiBarChart2 } from "react-icons/fi";
 
-function TeacherAttendance({ classes, selectedClass, setSelectedClass }) {
-  const [student, setStudent] = useState([]);
+function TeacherAttendance() {
+  const [classes, setClasses] = useState([]);
+  const [selectedClass, setSelectedClass] = useState("");
+  const [attendance, setAttendance] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const token = localStorage.getItem("access");
+
+  // Load class list
+  useEffect(() => {
+    const fetchClasses = async () => {
+      try {
+        const res = await ClassList();
+        setClasses(res || []);
+      } catch (error) {
+        console.error("Error fetching classes:", error);
+        Toast.error("Failed to load classes");
+      }
+    };
+    fetchClasses();
+  }, []);
+
+  // Fetch attendance summary
   const searchHandler = async () => {
     if (!selectedClass) {
       Toast.error("Please select a class");
@@ -15,55 +34,69 @@ function TeacherAttendance({ classes, selectedClass, setSelectedClass }) {
     }
     try {
       setLoading(true);
-      const data = await getStudentByClass(selectedClass);
-      setStudent(data);
-      if (data.length === 0) {
-        Toast.info("No students found in this class");
-      }
+      const res = await apiConnector(
+        "GET",
+        `/get_attendance_summary/${selectedClass}`,
+        null,
+        { Authorization: `Bearer ${token}` }
+      );
+      setAttendance(res.data.attendance_data || []);
     } catch (error) {
-      Toast.error("Failed to fetch students");
+      console.error("Error fetching attendance:", error);
+      Toast.error("Failed to fetch attendance");
     } finally {
       setLoading(false);
     }
   };
 
+  const getAttendanceRate = (total) => {
+    const workingDays = 30;
+    return ((total / workingDays) * 100).toFixed(1);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 py-8 px-4">
       <div className="max-w-6xl mx-auto space-y-6">
-        
         {/* Header */}
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 mb-2">
-            Student Attendance
-          </h1>
-          <p className="text-slate-600 text-lg">View and manage student attendance records</p>
+        <div className="flex items-center gap-3">
+          <div className="p-2 bg-white/70 backdrop-blur-sm rounded-xl shadow-lg border border-white/20">
+            <FiCalendar className="w-6 h-6 text-slate-600" />
+          </div>
+          <div>
+            <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700">
+              Attendance Summary
+            </h1>
+            <p className="text-slate-600">
+              View student attendance records by class
+            </p>
+          </div>
         </div>
 
         {/* Search Section */}
         <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 p-6">
           <div className="flex items-center gap-3 mb-6">
-            <div className="p-2 bg-gradient-to-r from-blue-100 to-purple-100 rounded-lg">
-              <FiSearch className="w-6 h-6 text-blue-600" />
+            <div className="p-2 bg-blue-50 rounded-lg">
+              <FiSearch className="w-5 h-5 text-blue-600" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-slate-800">Search Students</h2>
-              <p className="text-slate-600">Select a class to view student list</p>
+              <h2 className="text-xl font-bold text-slate-800">
+                Search Attendance
+              </h2>
+              <p className="text-slate-600">
+                Select a class to view attendance summary
+              </p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
-            {/* Class Selection */}
+            {/* Dropdown */}
             <div className="md:col-span-2 space-y-2">
               <label className="flex items-center gap-2 text-sm font-medium text-slate-700">
                 <FiUsers className="w-4 h-4 text-purple-500" />
                 Select Class
               </label>
               <select
-                onChange={(e) => {
-                  console.log("Selected Class ID:", e.target.value);
-                  setSelectedClass(e.target.value);
-                  setStudent([]); // Clear previous results
-                }}
+                onChange={(e) => setSelectedClass(e.target.value)}
                 value={selectedClass}
                 className="w-full p-3 border border-slate-200 rounded-xl bg-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
               >
@@ -80,22 +113,19 @@ function TeacherAttendance({ classes, selectedClass, setSelectedClass }) {
             <div className="space-y-2">
               <label className="text-sm font-medium text-transparent">Action</label>
               <button
-                className="w-full bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white px-6 py-3 rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
+                className="w-full bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white px-6 py-3 rounded-xl hover:opacity-90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 onClick={searchHandler}
                 disabled={loading || !selectedClass}
               >
                 {loading ? (
                   <>
-                    <svg className="animate-spin w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
+                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
                     Searching...
                   </>
                 ) : (
                   <>
                     <FiSearch className="w-4 h-4" />
-                    Search Students
+                    Search
                   </>
                 )}
               </button>
@@ -103,142 +133,100 @@ function TeacherAttendance({ classes, selectedClass, setSelectedClass }) {
           </div>
         </div>
 
-        {/* Results Section */}
+        {/* Results */}
         <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 overflow-hidden">
-          
-          {/* Results Header */}
           <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white p-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-white/20 rounded-lg">
-                  <FiUserCheck className="w-6 h-6" />
-                </div>
-                <div>
-                  <h2 className="text-2xl font-bold">Student List</h2>
-                  <p className="text-white/80">
-                    {student.length > 0 ? `${student.length} students found` : 'Select a class to view students'}
-                  </p>
-                </div>
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-white/20 rounded-lg">
+                <FiBarChart2 className="w-6 h-6" />
               </div>
-              
-              {student.length > 0 && (
-                <div className="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-lg">
-                  <FiCalendar className="w-4 h-4" />
-                  <span className="text-sm">Ready for attendance</span>
-                </div>
-              )}
+              <div>
+                <h2 className="text-2xl font-bold">Attendance Report</h2>
+                <p className="text-slate-200">
+                  {attendance.length > 0
+                    ? `${attendance.length} students found`
+                    : "Select a class to view attendance data"}
+                </p>
+              </div>
             </div>
           </div>
 
-          {/* Results Content */}
           <div className="p-6">
-            {student.length === 0 ? (
+            {attendance.length === 0 ? (
               <div className="text-center py-16">
-                <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center">
-                  <FiUsers className="w-12 h-12 text-slate-400" />
+                <div className="w-16 h-16 mx-auto mb-6 bg-slate-100 rounded-full flex items-center justify-center">
+                  <FiCalendar className="w-8 h-8 text-slate-400" />
                 </div>
-                <h3 className="text-2xl font-semibold text-slate-600 mb-3">
-                  {loading ? "Loading Students..." : "No Students Found"}
+                <h3 className="text-xl font-semibold text-slate-600 mb-3">
+                  {loading ? "Loading Attendance Data..." : "No Attendance Data"}
                 </h3>
                 <p className="text-slate-500 max-w-md mx-auto">
-                  {loading 
-                    ? "Please wait while we fetch the student list" 
-                    : selectedClass 
-                      ? "No students are enrolled in the selected class" 
-                      : "Select a class from the dropdown above to view students"
-                  }
+                  {loading
+                    ? "Please wait while we fetch the attendance records"
+                    : selectedClass
+                    ? "No attendance records found for this class"
+                    : "Select a class from the dropdown above to view attendance summary"}
                 </p>
               </div>
             ) : (
-              <div className="space-y-4">
-                {/* Students Count Header */}
-                <div className="flex items-center justify-between bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-4 mb-6">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 bg-blue-100 rounded-lg">
-                      <FiUsers className="w-5 h-5 text-blue-600" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-slate-800">Total Students</h3>
-                      <p className="text-sm text-slate-600">Class {classes.find(c => c.id == selectedClass)?.level}</p>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-2xl font-bold text-blue-600">{student.length}</div>
-                    <div className="text-sm text-slate-500">Students</div>
-                  </div>
-                </div>
-
-                {/* Student Cards */}
-                <div className="grid gap-4">
-                  {student.map((item, idx) => (
-                    <div
-                      key={item.id || idx}
-                      className="group border border-slate-200 rounded-xl p-4 bg-white/50 hover:bg-white hover:shadow-lg hover:border-blue-300 transition-all duration-300 cursor-pointer"
-                    >
-                      <div className="flex justify-between items-center">
-                        <div className="flex items-center gap-4">
-                          {/* Avatar */}
-                          <div className="relative">
-                            <img
-                              src={`https://api.dicebear.com/7.x/bottts/svg?seed=${item.full_name}`}
-                              alt="avatar"
-                              className="w-14 h-14 rounded-full border-3 border-white shadow-lg"
-                            />
-                            <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-400 border-2 border-white rounded-full"></div>
-                          </div>
-                          
-                          {/* Student Info */}
-                          <div>
-                            <h3 className="text-lg font-semibold text-slate-800 group-hover:text-blue-600 transition-colors">
-                              {item.full_name}
-                            </h3>
-                            <div className="flex items-center gap-2 text-sm text-slate-500">
-                              <FiUser className="w-3 h-3" />
-                              <span>Student ID: {item.id}</span>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Action Buttons */}
-                        <div className="flex items-center gap-3">
-                          <div className="text-right hidden sm:block">
-                            <div className="text-xs text-slate-500">Status</div>
-                            <div className="flex items-center gap-1 text-green-600">
-                              <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                              <span className="text-sm font-medium">Active</span>
-                            </div>
-                          </div>
-                          
-                          <button
-                            className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-2 transform hover:-translate-y-0.5 hover:shadow-md"
-                            onClick={() => alert(`Viewing ${item.full_name} profile`)}
-                          >
-                            <FiEye className="w-4 h-4" />
-                            View
-                          </button>
-                        </div>
+              <div className="space-y-3">
+                {attendance.map((item, index) => (
+                  <div
+                    key={item.student__id}
+                    className="flex items-center justify-between p-4 bg-white border border-slate-200 rounded-xl hover:shadow-md hover:border-slate-300 transition-all duration-200"
+                  >
+                    <div className="flex items-center gap-4">
+                      {/* Number */}
+                      <div className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center">
+                        <span className="font-semibold text-slate-600 text-sm">
+                          {index + 1}
+                        </span>
                       </div>
-                    </div>
-                  ))}
-                </div>
 
-                {/* Action Footer */}
-                <div className="mt-8 p-4 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 bg-green-100 rounded-lg">
-                        <FiCalendar className="w-5 h-5 text-green-600" />
-                      </div>
+                      {/* Avatar */}
+                      <img
+                        src={`https://api.dicebear.com/7.x/bottts/svg?seed=${item.student__full_name}`}
+                        alt="avatar"
+                        className="w-12 h-12 rounded-full border-2 border-white shadow-sm"
+                      />
+
+                      {/* Info */}
                       <div>
-                        <h4 className="font-semibold text-slate-800">Ready to mark attendance?</h4>
-                        <p className="text-sm text-slate-600">All {student.length} students are loaded and ready</p>
+                        <h3 className="font-semibold text-slate-800">
+                          {item.student__full_name}
+                        </h3>
+                        <div className="flex items-center gap-3">
+                          <p className="text-sm text-green-600 font-medium">
+                            Present: {item.total} days
+                          </p>
+                          <p className="text-sm text-slate-500">
+                            Rate: {getAttendanceRate(item.total)}%
+                          </p>
+                        </div>
                       </div>
                     </div>
-                    <button className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg font-medium transition-colors">
-                      Mark Attendance
-                    </button>
+
+                    {/* Badge + Button */}
+                    <div className="flex items-center gap-3">
+                      <div className="px-3 py-1 rounded-full text-xs font-medium border text-white bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700">
+                        {getAttendanceRate(item.total)}%
+                      </div>
+                      <button
+                        className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white px-4 py-2 rounded-lg transition-all duration-200 flex items-center gap-2 text-sm font-medium hover:opacity-90"
+                        onClick={() =>
+                          alert(
+                            `${item.student__full_name}\nPresent Days: ${item.total}\nAttendance Rate: ${getAttendanceRate(
+                              item.total
+                            )}%`
+                          )
+                        }
+                      >
+                        <FiEye className="w-4 h-4" />
+                        View
+                      </button>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
             )}
           </div>

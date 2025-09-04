@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   getUser,
   updateUser,
-  deleteUser,
   uploadPhoto,
   getPhoto,
 } from "../services/Apis";
@@ -58,19 +57,7 @@ function Profile({ setIsLoggedIn, setFullName, setPhotoUrl }) {
     }
   };
 
-  const handleDelete = async () => {
-    if (!window.confirm("Are you sure you want to delete your account?")) return;
-    try {
-      await deleteUser(formData.id);
-      Toast.success("Account deleted successfully!");
-      localStorage.removeItem("access");
-      setIsLoggedIn(false);
-      navigate("/");
-    } catch (err) {
-      console.error(err);
-      Toast.error("Deletion failed!");
-    }
-  };
+  
 
   const handleFileChange = (e) => setFile(e.target.files[0]);
 
@@ -181,13 +168,7 @@ function Profile({ setIsLoggedIn, setFullName, setPhotoUrl }) {
               >
                 Update Profile
               </button>
-              <button
-                type="button"
-                onClick={handleDelete}
-                className="flex-1 bg-gradient-to-r from-red-500 to-pink-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-red-600 hover:to-pink-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl text-lg"
-              >
-                Delete Account
-              </button>
+             
             </div>
           </form>
         </div>
