@@ -103,7 +103,7 @@ function AdminAttendance() {
     }
   };
 
-  const getAttendanceRate = (total) => ((total / 30) * 100).toFixed(1);
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 py-8 px-4">
@@ -187,7 +187,7 @@ function AdminAttendance() {
                     <div>
                       <h3 className="font-semibold text-slate-800">{item.student__full_name}</h3>
                       <p className="text-sm text-green-600 font-medium">Present: {item.total} days</p>
-                      <p className="text-sm text-slate-500">Rate: {getAttendanceRate(item.total)}%</p>
+                      
                     </div>
                   </div>
 

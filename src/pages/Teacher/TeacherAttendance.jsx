@@ -49,10 +49,6 @@ function TeacherAttendance() {
     }
   };
 
-  const getAttendanceRate = (total) => {
-    const workingDays = 30;
-    return ((total / workingDays) * 100).toFixed(1);
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 py-8 px-4">
@@ -199,25 +195,18 @@ function TeacherAttendance() {
                           <p className="text-sm text-green-600 font-medium">
                             Present: {item.total} days
                           </p>
-                          <p className="text-sm text-slate-500">
-                            Rate: {getAttendanceRate(item.total)}%
-                          </p>
+                         
                         </div>
                       </div>
                     </div>
 
                     {/* Badge + Button */}
                     <div className="flex items-center gap-3">
-                      <div className="px-3 py-1 rounded-full text-xs font-medium border text-white bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700">
-                        {getAttendanceRate(item.total)}%
-                      </div>
                       <button
                         className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white px-4 py-2 rounded-lg transition-all duration-200 flex items-center gap-2 text-sm font-medium hover:opacity-90"
                         onClick={() =>
                           alert(
-                            `${item.student__full_name}\nPresent Days: ${item.total}\nAttendance Rate: ${getAttendanceRate(
-                              item.total
-                            )}%`
+                            `${item.student__full_name}\nPresent Days: ${item.total}\n`
                           )
                         }
                       >
