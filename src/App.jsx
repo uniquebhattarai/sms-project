@@ -127,7 +127,8 @@ function App() {
         <Route path="/admin/dashboard" element={<PrivateRoute expectedRole="admin" ><AdminDashboard/></PrivateRoute>} />
         <Route path="/admin/manageuser" element={<PrivateRoute expectedRole="admin" ><ManageUser/></PrivateRoute>} />
         <Route path="/admin/register-user" element={<PrivateRoute expectedRole="admin" ><RegisterUser/></PrivateRoute>} />
-        <Route path="/admin/attendance" element={<PrivateRoute expectedRole="admin" ><AdminAttendance/></PrivateRoute>} />
+        <Route path="/admin/attendance" element={<PrivateRoute expectedRole="admin" ><AdminAttendance classes={classes}
+            selectedClass={selectedClass} setSelectedClass={setSelectedClass} /></PrivateRoute>} />
         <Route path="/admin/assignment" element={<PrivateRoute expectedRole="admin" ><TeacherAssignment  role="admin" classes={classes}
             subjects={subjects}
             selectedClass={selectedClass}    setSelectedClass={setSelectedClass} /></PrivateRoute>} />

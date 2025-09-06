@@ -131,7 +131,7 @@ function ManageUser() {
     setStudentToEdit(student);
     setEditFullName(student.full_name);
     setEditEmail(student.email);
-    setEditClassId(student.class_enrollments?.[0]?.class_level_id || null);
+    setEditClassId(student.current_class?.id || null);
     setShowEditModal(true);
   };
 
@@ -164,6 +164,7 @@ function ManageUser() {
           s.id === studentToEdit.id
             ? {
                 ...s,
+                class:studentToEdit,
                 full_name: editFullName,
                 email: editEmail,
                 class_enrollments: [
