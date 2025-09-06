@@ -3,12 +3,16 @@ import { ClassList } from "../../services/Apis";
 import { apiConnector } from "../../services/ApiConnector";
 import { Toast } from "../../../utils/Toast";
 import { FiUsers, FiSearch, FiCalendar, FiEye, FiBarChart2 } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 function TeacherAttendance() {
   const [classes, setClasses] = useState([]);
   const [selectedClass, setSelectedClass] = useState("");
   const [attendance, setAttendance] = useState([]);
   const [loading, setLoading] = useState(false);
+
+
+  const navigate = useNavigate();
 
   const token = localStorage.getItem("access");
 
@@ -204,11 +208,7 @@ function TeacherAttendance() {
                     <div className="flex items-center gap-3">
                       <button
                         className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white px-4 py-2 rounded-lg transition-all duration-200 flex items-center gap-2 text-sm font-medium hover:opacity-90"
-                        onClick={() =>
-                          alert(
-                            `${item.student__full_name}\nPresent Days: ${item.total}\n`
-                          )
-                        }
+                        onClick={() => navigate(`/teacher/student-attendance/${item.student__id}`)  }
                       >
                         <FiEye className="w-4 h-4" />
                         View

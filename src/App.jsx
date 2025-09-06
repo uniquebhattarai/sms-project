@@ -22,6 +22,7 @@ import AddMarksheet from "./pages/Teacher/AddMarksheet";
 import ViewMarksheet from "./pages/Student/ViewMarksheet";
 import ManageUser from "./pages/Admin/ManageUser";
 import RegisterUser from "./pages/Admin/RegisterUser";
+import AttendanceById from "./pages/Admin/AttendanceById";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("access"));
@@ -119,6 +120,8 @@ function App() {
         <Route path="/teacher/create/assignment" element={<PrivateRoute expectedRole="teacher" ><AddAssignment  role="teacher" classes={classes}
             subjects={subjects} selectedClass={selectedClass}   setSelectedClass={setSelectedClass}  /></PrivateRoute>} />
           <Route path="/teacher/assignment/details/:id" element={<PrivateRoute expectedRole="teacher" ><AssignmentDetails role="teacher" /></PrivateRoute>}/>
+          <Route path="/teacher/student-attendance/:id" element={<PrivateRoute expectedRole="teacher" ><AttendanceById  /></PrivateRoute>}/>
+          <Route path="/admin/student-attendance/:id" element={<PrivateRoute expectedRole="admin" ><AttendanceById  /></PrivateRoute>}/>
           <Route path="/admin/assignment/details/:id" element={<PrivateRoute expectedRole="admin" ><AssignmentDetails role="admin" /></PrivateRoute>}/>
           <Route path="/teacher/marksheet" element={<PrivateRoute expectedRole="teacher" ><Tmarksheet  role="teacher" /></PrivateRoute>}/>
           <Route path="/teacher/create/marksheet" element={<PrivateRoute expectedRole="teacher" ><AddMarksheet  role="teacher" /></PrivateRoute>}/>

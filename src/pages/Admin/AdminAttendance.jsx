@@ -4,7 +4,14 @@ import "react-datepicker/dist/react-datepicker.css";
 import { ClassList } from "../../services/Apis";
 import { apiConnector } from "../../services/ApiConnector";
 import { Toast } from "../../../utils/Toast";
-import { FiUsers, FiSearch, FiCalendar, FiEye, FiBarChart2 } from "react-icons/fi";
+import {
+  FiUsers,
+  FiSearch,
+  FiCalendar,
+  FiEye,
+  FiBarChart2,
+} from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 function AdminAttendance() {
   const [classes, setClasses] = useState([]);
@@ -13,6 +20,8 @@ function AdminAttendance() {
   const [loading, setLoading] = useState(false);
   const [selectedDates, setSelectedDates] = useState({}); // date per student
   const [markedDates, setMarkedDates] = useState({}); // existing marked dates per student
+
+  const navigate = useNavigate();
 
   const token = localStorage.getItem("access");
 
@@ -70,7 +79,11 @@ function AdminAttendance() {
     const dateStr = selectedDate.toISOString().split("T")[0];
 
     // Check if already marked
-    if (markedDates[studentId]?.some(d => d.toISOString().split("T")[0] === dateStr)) {
+    if (
+      markedDates[studentId]?.some(
+        (d) => d.toISOString().split("T")[0] === dateStr
+      )
+    ) {
       Toast.error("Attendance already marked for this date");
       return;
     }
@@ -87,7 +100,9 @@ function AdminAttendance() {
         }
       );
       if (res.status === 201) {
-        Toast.success(`Attendance marked for ${selectedDate.toLocaleDateString()}`);
+        Toast.success(
+          `Attendance marked for ${selectedDate.toLocaleDateString()}`
+        );
         // Refresh attendance
         searchHandler();
       }
@@ -102,8 +117,6 @@ function AdminAttendance() {
       setLoading(false);
     }
   };
-
-
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 py-8 px-4">
@@ -160,7 +173,9 @@ function AdminAttendance() {
           <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white p-6">
             <h2 className="text-2xl font-bold">Attendance Report</h2>
             <p className="text-slate-200">
-              {attendance.length > 0 ? `${attendance.length} students found` : "Select a class to view attendance data"}
+              {attendance.length > 0
+                ? `${attendance.length} students found`
+                : "Select a class to view attendance data"}
             </p>
           </div>
 
@@ -177,7 +192,9 @@ function AdminAttendance() {
                 >
                   <div className="flex items-center gap-4">
                     <div className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center">
-                      <span className="font-semibold text-slate-600 text-sm">{index + 1}</span>
+                      <span className="font-semibold text-slate-600 text-sm">
+                        {index + 1}
+                      </span>
                     </div>
                     <img
                       src={`https://api.dicebear.com/7.x/bottts/svg?seed=${item.student__full_name}`}
@@ -185,10 +202,26 @@ function AdminAttendance() {
                       className="w-12 h-12 rounded-full border-2 border-white shadow-sm"
                     />
                     <div>
-                      <h3 className="font-semibold text-slate-800">{item.student__full_name}</h3>
-                      <p className="text-sm text-green-600 font-medium">Present: {item.total} days</p>
-                      
+                      <h3 className="font-semibold text-slate-800">
+                        {item.student__full_name}
+                      </h3>
+                      <p className="text-sm text-green-600 font-medium">
+                        Present: {item.total} days
+                      </p>
                     </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <button
+                      className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white px-4 py-2 rounded-lg transition-all duration-200 flex items-center gap-2 text-sm font-medium hover:opacity-90"
+                      onClick={() =>
+                        navigate(
+                          `/admin/student-attendance/${item.student__id}`
+                        )
+                      }
+                    >
+                      <FiEye className="w-4 h-4" />
+                      View
+                    </button>
                   </div>
 
                   {/* Date Picker + Mark */}
@@ -196,7 +229,10 @@ function AdminAttendance() {
                     <DatePicker
                       selected={selectedDates[item.student__id] || null}
                       onChange={(date) =>
-                        setSelectedDates((prev) => ({ ...prev, [item.student__id]: date }))
+                        setSelectedDates((prev) => ({
+                          ...prev,
+                          [item.student__id]: date,
+                        }))
                       }
                       dateFormat="yyyy-MM-dd"
                       placeholderText="Select date"

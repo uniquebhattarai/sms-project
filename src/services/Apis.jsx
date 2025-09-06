@@ -238,3 +238,16 @@ export const getPerformance = async (studentId) => {
 
   return response.data;
 };
+
+export const attendanceById = async (id) => {
+  const token = localStorage.getItem("access");
+
+  const response = await apiConnector(
+    "GET",`/get_attendance_detail_by_id/${id}/`, 
+    null, 
+    { Authorization: `Bearer ${token}` }
+  );
+
+  return response.data;
+};
+
