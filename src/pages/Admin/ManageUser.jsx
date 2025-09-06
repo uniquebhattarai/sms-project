@@ -7,6 +7,7 @@ import {
   FiSearch,
   FiBookOpen,
   FiUserPlus,
+  FiEdit2,
 } from "react-icons/fi";
 import toast, { Toaster } from "react-hot-toast";
 import { apiConnector } from "../../services/ApiConnector";
@@ -22,6 +23,13 @@ function ManageUser() {
   const [activeTab, setActiveTab] = useState("students");
   const [showModal, setShowModal] = useState(false);
   const [userToDelete, setUserToDelete] = useState(null);
+
+  // ✅ Edit states
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [studentToEdit, setStudentToEdit] = useState(null);
+  const [editFullName, setEditFullName] = useState("");
+  const [editClassId, setEditClassId] = useState(null);
+  const [editEmail, setEditEmail] = useState("");
 
   const navigate = useNavigate();
 
@@ -115,6 +123,63 @@ function ManageUser() {
     } finally {
       setShowModal(false);
       setUserToDelete(null);
+    }
+  };
+
+  // ✅ Open Edit Modal
+  const openEditModal = (student) => {
+    setStudentToEdit(student);
+    setEditFullName(student.full_name);
+    setEditEmail(student.email);
+    setEditClassId(student.class_enrollments?.[0]?.class_level_id || null);
+    setShowEditModal(true);
+  };
+
+  // ✅ Update Student
+  const updateStudent = async () => {
+    if (!studentToEdit) return;
+    try {
+      const token = localStorage.getItem("access");
+
+      const payload = {
+        id: studentToEdit.id,
+        full_name: editFullName,
+       email: editEmail, 
+        is_active: true,
+        class_enrollments: [
+          {
+            class_level_id: editClassId,
+            is_current: true,
+          },
+        ],
+      };
+
+      await apiConnector("PUT", "/update_student/", payload, {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      });
+
+      setStudents((prev) =>
+        prev.map((s) =>
+          s.id === studentToEdit.id
+            ? {
+                ...s,
+                full_name: editFullName,
+                email: editEmail,
+                class_enrollments: [
+                  { class_level_id: editClassId, is_current: true },
+                ],
+              }
+            : s
+        )
+      );
+
+      toast.success("Student updated successfully");
+      setShowEditModal(false);
+      setStudentToEdit(null);
+    } catch (err) {
+      console.error("Update failed:", err.response?.data || err);
+      toast.error("Failed to update student");
     }
   };
 
@@ -218,8 +283,8 @@ function ManageUser() {
                     <p className="text-slate-200">
                       {selectedClass
                         ? `Class ${
-                            classes.find((c) => c.id === selectedClass)?.level ||
-                            ""
+                            classes.find((c) => c.id === selectedClass)
+                              ?.level || ""
                           } - ${students.length} students`
                         : "Select a class to view students"}
                     </p>
@@ -265,16 +330,27 @@ function ManageUser() {
                               <p className="font-semibold text-slate-800">
                                 {stu.full_name}
                               </p>
-                              <p className="text-sm text-slate-500">ID: {stu.id}</p>
+                              <p className="text-sm text-slate-500">
+                                {stu.email}
+                              </p>
                             </div>
                           </div>
-                          <button
-                            onClick={() => confirmDelete(stu)}
-                            className="bg-red-50 hover:bg-red-100 border border-red-200 text-red-600 px-4 py-2 rounded-lg flex items-center gap-2"
-                          >
-                            <FiTrash2 className="w-4 h-4" />
-                            Delete
-                          </button>
+                          <div className="flex gap-2">
+                            <button
+                              onClick={() => openEditModal(stu)}
+                              className="bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-600 px-4 py-2 rounded-lg flex items-center gap-2"
+                            >
+                              <FiEdit2 className="w-4 h-4" />
+                              Edit
+                            </button>
+                            <button
+                              onClick={() => confirmDelete(stu)}
+                              className="bg-red-50 hover:bg-red-100 border border-red-200 text-red-600 px-4 py-2 rounded-lg flex items-center gap-2"
+                            >
+                              <FiTrash2 className="w-4 h-4" />
+                              Delete
+                            </button>
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -347,9 +423,7 @@ function ManageUser() {
             <div className="p-6">
               <p className="mb-2">
                 Are you sure you want to delete{" "}
-                <span className="font-semibold">
-                  {userToDelete?.full_name}
-                </span>
+                <span className="font-semibold">{userToDelete?.full_name}</span>
                 ?
               </p>
               <div className="flex gap-3">
@@ -364,6 +438,81 @@ function ManageUser() {
                   className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg"
                 >
                   Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Edit Student Modal */}
+      {showEditModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg">
+            <div className="flex items-center justify-between p-6 border-b border-slate-200">
+              <h3 className="text-lg font-semibold text-slate-800">
+                Edit Student
+              </h3>
+              <button
+                onClick={() => setShowEditModal(false)}
+                className="p-2 hover:bg-slate-100 rounded-lg"
+              >
+                <FiX className="w-5 h-5 text-slate-500" />
+              </button>
+            </div>
+            <div className="p-6 space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-slate-600">
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  value={editFullName}
+                  onChange={(e) => setEditFullName(e.target.value)}
+                  className="w-full px-4 py-2 mt-1 border rounded-lg focus:ring focus:ring-blue-300"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-600">
+                  Email
+                </label>
+                <input
+                  type="text"
+                  value={editEmail} // use new state
+                  onChange={(e) => setEditEmail(e.target.value)}
+                  className="w-full px-4 py-2 mt-1 border rounded-lg focus:ring focus:ring-blue-300"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-slate-600">
+                  Class
+                </label>
+                <select
+                  value={editClassId || ""}
+                  onChange={(e) => setEditClassId(Number(e.target.value))}
+                  className="w-full px-4 py-2 mt-1 border rounded-lg focus:ring focus:ring-blue-300"
+                >
+                  <option value="">Select Class</option>
+                  {classes.map((cls) => (
+                    <option key={cls.id} value={cls.id}>
+                      Class {cls.level}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="flex gap-3 pt-4">
+                <button
+                  onClick={() => setShowEditModal(false)}
+                  className="flex-1 px-4 py-2 bg-slate-100 rounded-lg"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={updateStudent}
+                  className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg"
+                >
+                  Save Changes
                 </button>
               </div>
             </div>
