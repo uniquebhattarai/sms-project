@@ -7,7 +7,7 @@ import PrivateRoute from "./component/PrivateRoute";
 import Navbar from "./component/Navbar";
 import { useState, useEffect } from "react";
 import { getUser, getPhoto } from "./services/Apis";
-import TeacherDashboard from "./pages/Teacher/TeacherDashboard";
+// import TeacherDashboard from "./pages/Teacher/TeacherDashboard";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import AdminAttendance from "./pages/Admin/AdminAttendance";
 import TeacherAttendance from "./pages/Teacher/TeacherAttendance";
@@ -110,7 +110,7 @@ function App() {
         <Route path="/student/assignment/details/:id" element={<PrivateRoute expectedRole="student" ><ViewAssignment/></PrivateRoute>}/>
         <Route path="/student/grades" element={<PrivateRoute expectedRole="student" ><ViewMarksheet/></PrivateRoute>}/>
         <Route path="/profile"element={<PrivateRoute><Profile setIsLoggedIn={setIsLoggedIn}setFullName={setFullName}setPhotoUrl={setPhotoUrl}/> </PrivateRoute>}/>
-        <Route path="/teacher/dashboard" element={<PrivateRoute expectedRole="teacher" ><TeacherDashboard/></PrivateRoute>} />
+        <Route path="/teacher/dashboard" element={<PrivateRoute expectedRole="teacher" ><AdminDashboard role="teacher" /></PrivateRoute>} />
         <Route path="/teacher/attendance" element={<PrivateRoute expectedRole="teacher" ><TeacherAttendance classes={classes}
             selectedClass={selectedClass} setSelectedClass={setSelectedClass} /></PrivateRoute>} />
         <Route path="/teacher/assignment" element={<PrivateRoute expectedRole="teacher" ><TeacherAssignment  role="teacher"  classes={classes}
@@ -127,7 +127,7 @@ function App() {
           <Route path="/teacher/create/marksheet" element={<PrivateRoute expectedRole="teacher" ><AddMarksheet  role="teacher" /></PrivateRoute>}/>
           <Route path="/admin/marksheet" element={<PrivateRoute expectedRole="admin" ><Tmarksheet  role="admin" /></PrivateRoute>}/>
           <Route path="/admin/create/marksheet" element={<PrivateRoute expectedRole="admin" ><AddMarksheet  role="admin" /></PrivateRoute>}/>
-        <Route path="/admin/dashboard" element={<PrivateRoute expectedRole="admin" ><AdminDashboard/></PrivateRoute>} />
+        <Route path="/admin/dashboard" element={<PrivateRoute expectedRole="admin" ><AdminDashboard role="admin" /></PrivateRoute>} />
         <Route path="/admin/manageuser" element={<PrivateRoute expectedRole="admin" ><ManageUser/></PrivateRoute>} />
         <Route path="/admin/register-user" element={<PrivateRoute expectedRole="admin" ><RegisterUser/></PrivateRoute>} />
         <Route path="/admin/attendance" element={<PrivateRoute expectedRole="admin" ><AdminAttendance classes={classes}
