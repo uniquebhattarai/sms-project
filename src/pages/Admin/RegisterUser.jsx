@@ -1,75 +1,90 @@
 import React, { useState } from "react";
-import { FiArrowLeft, FiMail, FiLock, FiUser, FiShield } from "react-icons/fi";
+import { FiUser, FiMail, FiLock, FiUserPlus } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 import { apiConnector } from "../../services/ApiConnector";
-import toast, { Toaster } from "react-hot-toast";
 
-function RegisterUser() {
+const RegisterUser = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
+    full_name: "",
     email: "",
     password: "",
     password2: "",
-    full_name: "",
-    role: "student",
+    role: "",
+    gender:"",
+    class_level_id: "",
   });
+  console.log(formData)
 
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
-  // ✅ Handle input change
+  // ✅ handle input changes
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // ✅ Submit form
+  // ✅ handle submit
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Basic validation
+    if (formData.password !== formData.password2) {
+      toast.error("Passwords do not match!");
+      return;
+    }
+
     setLoading(true);
+
     try {
       const token = localStorage.getItem("access");
 
-      const res = await apiConnector("POST", "/register/", formData, {
+      // Decide which API endpoint to hit
+      const endpoint =
+        formData.role === "teacher"
+          ? "/register/"
+          : "/register_student/";
+
+      const res = await apiConnector("POST", endpoint, formData, {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       });
 
-      toast.success("User registered successfully");
+      toast.success(
+        formData.role === "teacher"
+          ? "Teacher registered successfully"
+          : "Student registered successfully"
+      );
+
       console.log("User Registered:", res.data);
 
-      // redirect back to ManageUser
+      // Redirect after success
       navigate("/admin/manageuser");
     } catch (err) {
       console.error("Registration failed:", err.response?.data || err);
-      toast.error(err.response?.data?.message || "Failed to register user");
+      toast.error(
+        err.response?.data?.message ||
+          "Failed to register user"
+      );
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 flex items-center justify-center px-4">
-      <Toaster position="top-right" />
+    <div className="flex justify-center items-center min-h-screen bg-slate-100">
+      <div className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md">
+        <h2 className="text-2xl font-bold text-center text-slate-700 mb-6">
+          <FiUserPlus className="inline-block mr-2 text-indigo-500" />
+          Register User
+        </h2>
 
-      <div className="bg-white/80 backdrop-blur-lg shadow-xl rounded-2xl w-full max-w-lg p-8 space-y-6">
-        {/* Header */}
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-700">
-            Register New User
-          </h1>
-          <button
-            onClick={() => navigate("/admin/manageuser")}
-            className="flex items-center gap-2 text-slate-600 hover:text-slate-900"
-          >
-            <FiArrowLeft /> Back
-          </button>
-        </div>
-
-        {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Full Name */}
+          {/* Username */}
           <div>
             <label className="block text-sm font-medium text-slate-700">
-              Full Name
+              Username
             </label>
             <div className="flex items-center border rounded-xl px-3 py-2 bg-slate-50">
               <FiUser className="text-slate-400 mr-2" />
@@ -78,7 +93,7 @@ function RegisterUser() {
                 name="full_name"
                 value={formData.full_name}
                 onChange={handleChange}
-                placeholder="Enter full name"
+                placeholder="Enter username"
                 className="flex-1 bg-transparent outline-none"
                 required
               />
@@ -142,37 +157,74 @@ function RegisterUser() {
             </div>
           </div>
 
-          {/* Role */}
+    
+          <div>
+            <label className="block text-sm font-medium text-slate-700">
+              Gender
+            </label>
+            <select
+              name="gender"
+              value={formData.gender}
+              onChange={handleChange}
+              required
+              className="w-full border rounded-xl px-3 py-2 bg-slate-50 text-slate-700 outline-none"
+            >
+              <option value="">Select Gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
+
           <div>
             <label className="block text-sm font-medium text-slate-700">
               Role
             </label>
-            <div className="flex items-center border rounded-xl px-3 py-2 bg-slate-50">
-              <FiShield className="text-slate-400 mr-2" />
-              <select
-                name="role"
-                value={formData.role}
-                onChange={handleChange}
-                className="flex-1 bg-transparent outline-none"
-              >
-                <option value="student">Student</option>
-                <option value="teacher">Teacher</option>
-              </select>
-            </div>
+            <select
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
+              required
+              className="w-full border rounded-xl px-3 py-2 bg-slate-50 text-slate-700 outline-none"
+            >
+              <option value="">Select role</option>
+              <option value="teacher">Teacher</option>
+              <option value="student">Student</option>
+            </select>
           </div>
 
-          {/* Submit Button */}
+          {/* Class Level ID (only for students) */}
+          {formData.role === "student" && (
+            <div>
+              <label className="block text-sm font-medium text-slate-700">
+                Class Level ID
+              </label>
+              <div className="flex items-center border rounded-xl px-3 py-2 bg-slate-50">
+                <FiUser className="text-slate-400 mr-2" />
+                <input
+                  type="number"
+                  name="class_level_id"
+                  value={formData.class_level_id}
+                  onChange={handleChange}
+                  placeholder="Enter class level ID"
+                  className="flex-1 bg-transparent outline-none"
+                  required
+                />
+              </div>
+            </div>
+          )}
+
+          {/* Submit */}
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold rounded-xl shadow-lg hover:scale-105 transition-transform disabled:opacity-50"
+            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-xl transition"
           >
-            {loading ? "Registering..." : "Register User"}
+            {loading ? "Registering..." : "Register"}
           </button>
         </form>
       </div>
     </div>
   );
-}
+};
 
 export default RegisterUser;
