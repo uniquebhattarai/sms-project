@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FiUser, FiMail, FiLock, FiUserPlus } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { apiConnector } from "../../services/ApiConnector";
+import { ClassList } from "../../services/Apis";
 
 const RegisterUser = () => {
   const navigate = useNavigate();
@@ -13,38 +14,50 @@ const RegisterUser = () => {
     password: "",
     password2: "",
     role: "",
-    gender:"",
+    gender: "",
     class_level_id: "",
   });
-  console.log(formData)
 
   const [loading, setLoading] = useState(false);
+  const [classes, setClasses] = useState([]);
 
-  // ✅ handle input changes
+  // ✅ Fetch class list when role = student
+  useEffect(() => {
+    const fetchClassList = async () => {
+      try {
+        const data = await ClassList();
+        setClasses(data); // expecting [{id, name}, ...]
+      } catch (error) {
+        console.error("Error fetching classes:", error);
+        toast.error("Failed to load class list");
+      }
+    };
+
+    if (formData.role === "student") {
+      fetchClassList();
+    }
+  }, [formData.role]);
+
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // ✅ handle submit
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Basic validation
     if (formData.password !== formData.password2) {
       toast.error("Passwords do not match!");
       return;
     }
 
     setLoading(true);
-
     try {
       const token = localStorage.getItem("access");
 
-      // Decide which API endpoint to hit
       const endpoint =
-        formData.role === "teacher"
-          ? "/register/"
-          : "/register_student/";
+        formData.role === "teacher" ? "/register/" : "/register_student/";
 
       const res = await apiConnector("POST", endpoint, formData, {
         Authorization: `Bearer ${token}`,
@@ -58,15 +71,10 @@ const RegisterUser = () => {
       );
 
       console.log("User Registered:", res.data);
-
-      // Redirect after success
       navigate("/admin/manageuser");
     } catch (err) {
       console.error("Registration failed:", err.response?.data || err);
-      toast.error(
-        err.response?.data?.message ||
-          "Failed to register user"
-      );
+      toast.error(err.response?.data?.message || "Failed to register user");
     } finally {
       setLoading(false);
     }
@@ -81,10 +89,10 @@ const RegisterUser = () => {
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Username */}
+         
           <div>
             <label className="block text-sm font-medium text-slate-700">
-              Username
+              Full Name
             </label>
             <div className="flex items-center border rounded-xl px-3 py-2 bg-slate-50">
               <FiUser className="text-slate-400 mr-2" />
@@ -93,14 +101,14 @@ const RegisterUser = () => {
                 name="full_name"
                 value={formData.full_name}
                 onChange={handleChange}
-                placeholder="Enter username"
+                placeholder="Enter full name"
                 className="flex-1 bg-transparent outline-none"
                 required
               />
             </div>
           </div>
 
-          {/* Email */}
+     
           <div>
             <label className="block text-sm font-medium text-slate-700">
               Email
@@ -119,7 +127,6 @@ const RegisterUser = () => {
             </div>
           </div>
 
-          {/* Password */}
           <div>
             <label className="block text-sm font-medium text-slate-700">
               Password
@@ -138,7 +145,7 @@ const RegisterUser = () => {
             </div>
           </div>
 
-          {/* Confirm Password */}
+
           <div>
             <label className="block text-sm font-medium text-slate-700">
               Confirm Password
@@ -157,7 +164,6 @@ const RegisterUser = () => {
             </div>
           </div>
 
-    
           <div>
             <label className="block text-sm font-medium text-slate-700">
               Gender
@@ -175,6 +181,7 @@ const RegisterUser = () => {
             </select>
           </div>
 
+
           <div>
             <label className="block text-sm font-medium text-slate-700">
               Role
@@ -186,34 +193,34 @@ const RegisterUser = () => {
               required
               className="w-full border rounded-xl px-3 py-2 bg-slate-50 text-slate-700 outline-none"
             >
-              <option value="">Select role</option>
+              <option value="">Select Role</option>
               <option value="teacher">Teacher</option>
               <option value="student">Student</option>
             </select>
           </div>
 
-          {/* Class Level ID (only for students) */}
           {formData.role === "student" && (
             <div>
               <label className="block text-sm font-medium text-slate-700">
-                Class Level ID
+                Class
               </label>
-              <div className="flex items-center border rounded-xl px-3 py-2 bg-slate-50">
-                <FiUser className="text-slate-400 mr-2" />
-                <input
-                  type="number"
-                  name="class_level_id"
-                  value={formData.class_level_id}
-                  onChange={handleChange}
-                  placeholder="Enter class level ID"
-                  className="flex-1 bg-transparent outline-none"
-                  required
-                />
-              </div>
+              <select
+                name="class_level_id"
+                value={formData.class_level_id}
+                onChange={handleChange}
+                required
+                className="w-full border rounded-xl px-3 py-2 bg-slate-50 text-slate-700 outline-none"
+              >
+                <option value="">Select Class</option>
+                {classes.map((cls) => (
+                  <option key={cls.id} value={cls.id}>
+                    class { cls.level}
+                  </option>
+                ))}
+              </select>
             </div>
           )}
 
-          {/* Submit */}
           <button
             type="submit"
             disabled={loading}
