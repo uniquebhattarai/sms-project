@@ -63,7 +63,7 @@ function AddAssignment({ classes, subjects, selectedClass, setSelectedClass }) {
       <div className="max-w-2xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full mb-4">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-green-600 to-emerald-700 rounded-full mb-4">
             <svg
               className="w-8 h-8 text-white"
               fill="none"
@@ -78,7 +78,7 @@ function AddAssignment({ classes, subjects, selectedClass, setSelectedClass }) {
               />
             </svg>
           </div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-700 bg-clip-text text-transparent">
             Create Assignment
           </h1>
         </div>
@@ -203,7 +203,7 @@ function AddAssignment({ classes, subjects, selectedClass, setSelectedClass }) {
             className={`w-full py-4 px-6 rounded-xl font-semibold text-white ${
               isSubmitting
                 ? "bg-gray-400 cursor-not-allowed"
-                : "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg"
+                :"bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 shadow-lg text-white px-6 py-3 rounded-xl font-semibold transition-all duration-200"
             }`}
           >
             {isSubmitting ? "Creating Assignment..." : "Create Assignment"}

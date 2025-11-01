@@ -49,10 +49,7 @@ function ViewMarksheet() {
     return acc;
   }, {});
 
-  // Download as PDF (using print)
-  const handleDownload = () => {
-    window.print();
-  };
+  
 
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4">
@@ -68,18 +65,12 @@ function ViewMarksheet() {
   <div className="absolute right-0 flex gap-3">
     <button
       onClick={() => window.print()}
-      className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-blue-700 shadow-md transition"
+      className="bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-green-700 shadow-md transition"
     >
       <FiPrinter className="w-4 h-4" />
       Print
     </button>
-    <button
-      onClick={handleDownload}
-      className="bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-green-700 shadow-md transition"
-    >
-      <FiDownload className="w-4 h-4" />
-      Download
-    </button>
+   
   </div>
 </div>
 
@@ -88,13 +79,13 @@ function ViewMarksheet() {
         <div className="bg-white shadow-2xl rounded-xl overflow-hidden print:shadow-none print:rounded-none border border-gray-300">
           
           {/* School Header */}
-          <div className="p-8 text-center border-b-4 border-blue-700 bg-gradient-to-r from-blue-50 to-gray-50">
-            <div className="w-16 h-16 mx-auto mb-4 border-2 border-blue-700 rounded-full flex items-center justify-center bg-blue-100">
-              <FiAward className="w-8 h-8 text-blue-700" />
+          <div className="p-8 text-center border-b-4 border-greenn-700 bg-gradient-to-r from-blue-50 to-gray-50">
+            <div className="w-16 h-16 mx-auto mb-4 border-2 border-green-700 rounded-full flex items-center justify-center bg-blue-100">
+              <FiAward className="w-8 h-8 text-green-700" />
             </div>
             <h1 className="text-3xl font-bold mb-1 text-gray-800">XYZ Secondary School</h1>
             <p className="text-lg text-gray-600">Kathmandu, Nepal</p>
-            <p className="mt-2 font-semibold text-xl text-blue-700 underline">Official Marksheet</p>
+            <p className="mt-2 font-semibold text-xl text-green-700 underline">Official Marksheet</p>
           </div>
 
           {/* Student Info */}
@@ -119,7 +110,7 @@ function ViewMarksheet() {
               const examDate = marks[marks.length - 1]?.date; // last subject date
               return (
                 <div key={examName}>
-                  <h2 className="text-2xl font-bold text-center mb-4 text-blue-700 underline">{examName}</h2>
+                  <h2 className="text-2xl font-bold text-center mb-4 text-green-700 underline">{examName}</h2>
                   <table className="w-full border-collapse border border-gray-700 text-lg">
                     <thead>
                       <tr className="bg-blue-50">
@@ -138,7 +129,7 @@ function ViewMarksheet() {
                             <td className="border border-gray-700 px-4 py-2">{index + 1}</td>
                             <td className="border border-gray-700 px-4 py-2 text-left">{m.subject.name}</td>
                             <td className="border border-gray-700 px-4 py-2">{m.full_marks}</td>
-                            <td className="border border-gray-700 px-4 py-2 font-semibold text-blue-700">{m.marks}</td>
+                            <td className="border border-gray-700 px-4 py-2 font-semibold text-green-700">{m.marks}</td>
                             <td className="border border-gray-700 px-4 py-2">{percentage}%</td>
                           </tr>
                         );
@@ -154,7 +145,7 @@ function ViewMarksheet() {
           </div>
 
           {/* Summary Section */}
-          <div className="p-8 border-t-2 border-blue-700 text-lg bg-gray-50">
+          <div className="p-8 border-t-2 border-green-700 text-lg bg-gray-50">
             <p>Average Percentage: <span className="font-bold text-blue-700">{performance.average_percentage}%</span></p>
             <p>Result: <span className={`font-bold ${performance.average_percentage >= 40 ? "text-green-600" : "text-red-600"}`}>
               {performance.average_percentage >= 40 ? "PASS" : "FAIL"}

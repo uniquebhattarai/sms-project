@@ -49,9 +49,9 @@ const CardContent = ({ children, className }) => (
 const LoadingSpinner = () => (
   <div className="flex items-center justify-center min-h-[400px]">
     <div className="relative">
-      <div className="w-20 h-20 border-4 border-blue-100 border-t-blue-600 rounded-full animate-spin"></div>
+      <div className="w-20 h-20 border-4 border-blue-100 border-t-green-600 rounded-full animate-spin"></div>
       <div className="absolute inset-0 flex items-center justify-center">
-        <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full animate-pulse"></div>
+        <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-emerald-600 rounded-full animate-pulse"></div>
       </div>
     </div>
     <div className="ml-4">
@@ -90,7 +90,7 @@ function AdminDashboard({ role = "admin" }) {
         Authorization: `Bearer ${token}`,
       });
 
-      console.log("Dashboard API Response:", res); 
+      console.log("Dashboard API Response:", res);
       if (res && res.data) {
         setDashboard(res.data);
       } else if (res) {
@@ -249,7 +249,7 @@ function AdminDashboard({ role = "admin" }) {
         <div className="max-w-7xl mx-auto px-6 py-6">
           <div className="flex items-center justify-between">
             <div className="space-y-1">
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent leading-tight">
+              <h1 className="text-4xl font-bold bg-emerald-600 bg-clip-text text-transparent leading-tight">
                 {role === "admin" ? "Admin Dashboard" : "Teacher Dashboard"}
               </h1>
               <p className="text-gray-600 text-lg font-medium">
@@ -264,8 +264,12 @@ function AdminDashboard({ role = "admin" }) {
               </div>
             </div>
             <button
-              onClick={() => role =="admin"? navigate("/admin/prediction"):navigate("/teacher/prediction")}
-              className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium rounded-lg shadow hover:scale-105 transition"
+              onClick={() =>
+                role == "admin"
+                  ? navigate("/admin/prediction")
+                  : navigate("/teacher/prediction")
+              }
+              className="px-4 py-2 bg-emerald-600 text-white font-medium rounded-lg shadow hover:scale-105 transition"
             >
               🎯 Student Score Prediction
             </button>
@@ -509,6 +513,7 @@ function AdminDashboard({ role = "admin" }) {
               <ResponsiveContainer width="100%" height={350}>
                 <BarChart data={dashboard.class_attendance || []}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+
                   <XAxis
                     dataKey="class_name"
                     stroke="#6b7280"
@@ -516,12 +521,14 @@ function AdminDashboard({ role = "admin" }) {
                     tickLine={false}
                     axisLine={false}
                   />
+
                   <YAxis
-                    stroke="#6b7280"
+                    stroke="#10b981"
                     fontSize={12}
                     tickLine={false}
                     axisLine={false}
                   />
+
                   <Tooltip
                     contentStyle={{
                       backgroundColor: "white",
@@ -530,23 +537,25 @@ function AdminDashboard({ role = "admin" }) {
                       boxShadow: "0 10px 25px rgba(0,0,0,0.1)",
                     }}
                   />
+
                   <Bar
                     dataKey="average_attendance"
                     fill="url(#colorAttendanceBar)"
                     radius={[8, 8, 0, 0]}
                   />
+
                   <defs>
                     <linearGradient
                       id="colorAttendanceBar"
                       x1="0"
                       y1="0"
-                      x2="0"
-                      y2="1"
+                      x2="1"
+                      y2="0"
                     >
-                      <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.9} />
+                      <stop offset="0%" stopColor="#34d399" stopOpacity={0.9} />
                       <stop
-                        offset="95%"
-                        stopColor="#3b82f6"
+                        offset="100%"
+                        stopColor="#059669"
                         stopOpacity={0.9}
                       />
                     </linearGradient>
@@ -591,19 +600,19 @@ function AdminDashboard({ role = "admin" }) {
                     <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-100/20 to-purple-100/20 rounded-full -translate-y-16 translate-x-16 group-hover:scale-150 transition-transform duration-700"></div>
 
                     {/* Avatar with enhanced styling */}
-                    <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center text-white font-bold text-xl mr-6 shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 relative z-10">
+                    <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-r from-green-400 to-emerald-600 rounded-2xl flex items-center justify-center text-white font-bold text-xl mr-6 shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 relative z-10">
                       {act.title ? act.title.charAt(0).toUpperCase() : "A"}
                     </div>
 
                     {/* Content */}
                     <div className="flex-1 min-w-0 relative z-10">
                       <div className="flex items-start justify-between mb-3">
-                        <p className="font-bold text-xl text-gray-800 group-hover:text-blue-600 transition-colors duration-300">
+                        <p className="font-bold text-xl text-gray-800 group-hover:text-green-600 transition-colors duration-300">
                           {act.title || "Activity"}
                         </p>
                         <div className="flex items-center gap-2">
                           {act.type && (
-                            <span className="flex items-center gap-2 px-3 py-1 bg-gradient-to-r from-blue-100 to-purple-100 text-blue-700 rounded-full text-xs font-semibold border border-blue-200">
+                            <span className="flex items-center gap-2 px-3 py-1 bg-gradient-to-r from-blue-100 to-purple-100 text-green-700 rounded-full text-xs font-semibold border border-blue-200">
                               {act.type}
                             </span>
                           )}

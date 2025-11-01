@@ -8,7 +8,7 @@ import {
   FiFileText,
   FiTrello,
   FiClock,
-  FiUser
+  FiUser,
 } from "react-icons/fi";
 import { Toast } from "../../utils/Toast";
 
@@ -83,7 +83,7 @@ export function Navbar({ setIsLoggedIn, fullName, photoUrl, role }) {
 
   return (
     <>
-      <nav className="relative z-50 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 shadow-lg">
+      <nav className="relative z-50 bg-gradient-to-r from-green-600 via-emerald-600 to-green-800 shadow-lg">
         <div className="px-4 py-1">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -103,7 +103,7 @@ export function Navbar({ setIsLoggedIn, fullName, photoUrl, role }) {
                 }
                 className="flex items-center gap-3 "
               >
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg border-2 border-white/20 ">
+                <div className="w-12 h-12 bg-gradient-to-r from-green-400 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg border-2 border-white/20">
                   <svg
                     className="w-7 h-7 text-white"
                     fill="none"
@@ -142,7 +142,7 @@ export function Navbar({ setIsLoggedIn, fullName, photoUrl, role }) {
             onClick={toggleMenu}
           />
           <div className="fixed left-0 top-0 z-40 w-72 h-full bg-white shadow-2xl transform transition-transform duration-300">
-            <div className="p-6 bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-between">
+            <div className="p-6 bg-gradient-to-r from-green-400 to-emerald-600 flex items-center justify-between">
               <h2 className="text-lg font-bold text-white">Menu</h2>
               <button
                 onClick={toggleMenu}
@@ -201,14 +201,6 @@ export function Navbar({ setIsLoggedIn, fullName, photoUrl, role }) {
                       <FiTrello className="w-5 h-5" />
                       Grades
                     </Link>
-                    <Link
-                      to="/student/schedule"
-                      className="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-blue-50"
-                      onClick={toggleMenu}
-                    >
-                      <FiClock className="w-5 h-5" />
-                      Schedule
-                    </Link>
                   </>
                 )}
 
@@ -247,12 +239,12 @@ export function Navbar({ setIsLoggedIn, fullName, photoUrl, role }) {
                       <FiClipboard className="w-5 h-5" />
                       MarkSheet
                     </Link>
-                     <Link
+                    <Link
                       to="/teacher/classparticipation"
                       className="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-blue-50"
                       onClick={toggleMenu}
                     >
-                      < FiUser className="w-5 h-5" />
+                      <FiUser className="w-5 h-5" />
                       Class Participation
                     </Link>
                   </>
@@ -285,7 +277,7 @@ export function Navbar({ setIsLoggedIn, fullName, photoUrl, role }) {
                       <FiFileText className="w-5 h-5" />
                       Manage Assignment
                     </Link>
-                     <Link
+                    <Link
                       to="/admin/marksheet"
                       className="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-blue-50"
                       onClick={toggleMenu}
@@ -293,20 +285,20 @@ export function Navbar({ setIsLoggedIn, fullName, photoUrl, role }) {
                       <FiClipboard className="w-5 h-5" />
                       Manage Marksheet
                     </Link>
-                     <Link
+                    <Link
                       to="/admin/manageuser"
                       className="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-blue-50"
                       onClick={toggleMenu}
                     >
-                      < FiUser className="w-5 h-5" />
+                      <FiUser className="w-5 h-5" />
                       Manage User
                     </Link>
-                     <Link
+                    <Link
                       to="/admin/classparticipation"
                       className="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-blue-50"
                       onClick={toggleMenu}
                     >
-                      < FiUser className="w-5 h-5" />
+                      <FiUser className="w-5 h-5" />
                       Class Participation
                     </Link>
                   </>

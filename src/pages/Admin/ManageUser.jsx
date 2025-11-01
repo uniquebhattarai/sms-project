@@ -24,7 +24,7 @@ function ManageUser() {
   const [showModal, setShowModal] = useState(false);
   const [userToDelete, setUserToDelete] = useState(null);
 
-  // ✅ Edit states
+
   const [showEditModal, setShowEditModal] = useState(false);
   const [studentToEdit, setStudentToEdit] = useState(null);
   const [editFullName, setEditFullName] = useState("");
@@ -33,7 +33,6 @@ function ManageUser() {
 
   const navigate = useNavigate();
 
-  // ✅ Fetch Classes
   useEffect(() => {
     const fetchClasses = async () => {
       try {
@@ -50,7 +49,7 @@ function ManageUser() {
     fetchClasses();
   }, []);
 
-  // ✅ Fetch Students
+ 
   const fetchStudents = async (classId) => {
     setSelectedClass(classId);
     setLoading(true);
@@ -71,7 +70,7 @@ function ManageUser() {
     }
   };
 
-  // ✅ Fetch Teachers
+
   const fetchTeachers = async () => {
     setLoading(true);
     try {
@@ -88,13 +87,12 @@ function ManageUser() {
     }
   };
 
-  // ✅ Confirm Delete
+
   const confirmDelete = (user) => {
     setUserToDelete(user);
     setShowModal(true);
   };
 
-  // ✅ Delete User
   const deleteUser = async () => {
     if (!userToDelete) return;
     try {
@@ -126,7 +124,6 @@ function ManageUser() {
     }
   };
 
-  // ✅ Open Edit Modal
   const openEditModal = (student) => {
     setStudentToEdit(student);
     setEditFullName(student.full_name);
@@ -135,7 +132,7 @@ function ManageUser() {
     setShowEditModal(true);
   };
 
-  // ✅ Update Student
+  
   const updateStudent = async () => {
     if (!studentToEdit) return;
     try {
@@ -196,7 +193,7 @@ function ManageUser() {
               <FiUsers className="w-6 h-6 text-slate-600" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700">
+              <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-600">
                 Manage Users
               </h1>
               <p className="text-slate-600">
@@ -205,7 +202,7 @@ function ManageUser() {
             </div>
           </div>
 
-          {/* ✅ Add New User Button */}
+
           <button
             onClick={() => navigate("/admin/register-user")}
             className="flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold shadow-lg hover:scale-105 transition-transform"
@@ -221,7 +218,7 @@ function ManageUser() {
             onClick={() => setActiveTab("students")}
             className={`px-4 py-2 rounded-lg font-medium transition-colors ${
               activeTab === "students"
-                ? "bg-blue-600 text-white shadow"
+                ? "bg-emerald-600 text-white shadow"
                 : "bg-slate-200 text-slate-700 hover:bg-slate-300"
             }`}
           >
@@ -234,7 +231,7 @@ function ManageUser() {
             }}
             className={`px-4 py-2 rounded-lg font-medium transition-colors ${
               activeTab === "teachers"
-                ? "bg-purple-600 text-white shadow"
+                ? "bg-green-600 text-white shadow"
                 : "bg-slate-200 text-slate-700 hover:bg-slate-300"
             }`}
           >
@@ -249,7 +246,7 @@ function ManageUser() {
             <div className="lg:col-span-1">
               <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 p-6 sticky top-6">
                 <h2 className="text-lg font-semibold text-slate-800 mb-4 flex items-center gap-2">
-                  <FiSearch className="w-5 h-5 text-blue-600" />
+                  <FiSearch className="w-5 h-5 text-green-600" />
                   Select Class
                 </h2>
                 <div className="space-y-2">
@@ -262,7 +259,7 @@ function ManageUser() {
                         onClick={() => fetchStudents(cls.id)}
                         className={`w-full px-4 py-3 rounded-xl text-left transition-all duration-200 ${
                           selectedClass === cls.id
-                            ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg"
+                            ? "bg-gradient-to-r  from-green-600 to-emerald-600 text-white shadow-lg"
                             : "bg-slate-100 hover:bg-slate-200 text-slate-700"
                         }`}
                       >
@@ -278,7 +275,7 @@ function ManageUser() {
             <div className="lg:col-span-3">
               <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 overflow-hidden">
                 {/* Students Header */}
-                <div className="bg-gradient-to-r from-slate-600 to-slate-700 text-white p-6 flex items-center justify-between">
+                <div className="bg-emerald-600 text-white p-6 flex items-center justify-between">
                   <div>
                     <h2 className="text-xl font-bold">Students</h2>
                     <p className="text-slate-200">
@@ -303,7 +300,7 @@ function ManageUser() {
                 <div className="p-6">
                   {loading ? (
                     <div className="text-center py-12">
-                      <div className="w-12 h-12 mx-auto mb-4 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
+                      <div className="w-12 h-12 mx-auto mb-4 border-4 border-green-200 border-t-green-600 rounded-full animate-spin"></div>
                       <p className="text-slate-500">Loading students...</p>
                     </div>
                   ) : !selectedClass ? (
@@ -323,7 +320,7 @@ function ManageUser() {
                         >
                           <div className="flex items-center gap-3">
                             <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full flex items-center justify-center">
-                              <span className="font-semibold text-blue-600 text-sm">
+                              <span className="font-semibold text-green-600 text-sm">
                                 {index + 1}
                               </span>
                             </div>
@@ -339,7 +336,7 @@ function ManageUser() {
                           <div className="flex gap-2">
                             <button
                               onClick={() => openEditModal(stu)}
-                              className="bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-600 px-4 py-2 rounded-lg flex items-center gap-2"
+                              className="bg-blue-50 hover:bg-blue-100 border border-blue-200 text-green-600 px-4 py-2 rounded-lg flex items-center gap-2"
                             >
                               <FiEdit2 className="w-4 h-4" />
                               Edit
@@ -363,7 +360,7 @@ function ManageUser() {
         ) : (
           // Teachers Tab
           <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 overflow-hidden">
-            <div className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-6">
+            <div className="bg-emerald-600 text-white p-6">
               <h2 className="text-xl font-bold flex items-center gap-2">
                 <FiBookOpen className="w-5 h-5" /> Teachers
               </h2>
@@ -511,7 +508,7 @@ function ManageUser() {
                 </button>
                 <button
                   onClick={updateStudent}
-                  className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg"
+                  className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg"
                 >
                   Save Changes
                 </button>

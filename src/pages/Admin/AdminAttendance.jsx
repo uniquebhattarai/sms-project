@@ -18,8 +18,8 @@ function AdminAttendance() {
   const [selectedClass, setSelectedClass] = useState("");
   const [attendance, setAttendance] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [selectedDates, setSelectedDates] = useState({}); // date per student
-  const [markedDates, setMarkedDates] = useState({}); // existing marked dates per student
+  const [selectedDates, setSelectedDates] = useState({});
+  const [markedDates, setMarkedDates] = useState({}); 
 
   const navigate = useNavigate();
 
@@ -127,7 +127,7 @@ function AdminAttendance() {
             <FiCalendar className="w-6 h-6 text-slate-600" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700">
+            <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-emerald-600">
               Attendance Summary
             </h1>
             <p className="text-slate-600">
@@ -141,13 +141,13 @@ function AdminAttendance() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
             <div className="md:col-span-2">
               <label className="flex items-center gap-2 text-sm font-medium text-slate-700">
-                <FiUsers className="w-4 h-4 text-purple-500" />
+                <FiUsers className="w-4 h-4 text-emerald-600" />
                 Select Class
               </label>
               <select
                 onChange={(e) => setSelectedClass(e.target.value)}
                 value={selectedClass}
-                className="w-full p-3 border border-slate-200 rounded-xl bg-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                className="w-full p-3 border border-slate-200 rounded-xl bg-white/50 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all"
               >
                 <option value="">Choose a class</option>
                 {classes.map((cls) => (
@@ -159,7 +159,7 @@ function AdminAttendance() {
             </div>
             <div className="space-y-2">
               <button
-                className="w-full bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white px-6 py-3 rounded-xl hover:opacity-90 transition-all"
+                className="w-full bg-gradient-to-r from-green-400 to-emerald-600 text-white px-6 py-3 rounded-xl hover:opacity-90 transition-all"
                 onClick={searchHandler}
               >
                 Search
@@ -170,7 +170,7 @@ function AdminAttendance() {
 
         {/* Attendance List */}
         <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 overflow-hidden">
-          <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white p-6">
+          <div className="bg-emerald-600 text-white p-6">
             <h2 className="text-2xl font-bold">Attendance Report</h2>
             <p className="text-slate-200">
               {attendance.length > 0
@@ -212,7 +212,7 @@ function AdminAttendance() {
                   </div>
                   <div className="flex items-center gap-3">
                     <button
-                      className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white px-4 py-2 rounded-lg transition-all duration-200 flex items-center gap-2 text-sm font-medium hover:opacity-90"
+                      className="bg-gradient-to-r from-purple-600 to-indigo-700 text-white px-4 py-2 rounded-lg transition-all duration-200 flex items-center gap-2 text-sm font-medium hover:opacity-90"
                       onClick={() =>
                         navigate(
                           `/admin/student-attendance/${item.student__id}`
@@ -237,7 +237,7 @@ function AdminAttendance() {
                       dateFormat="yyyy-MM-dd"
                       placeholderText="Select date"
                       className="border px-2 py-1 rounded-lg"
-                      excludeDates={markedDates[item.student__id]} // disable already marked dates
+                      excludeDates={markedDates[item.student__id]} 
                     />
                     <button
                       className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium"

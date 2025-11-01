@@ -86,7 +86,7 @@ export default function StudentDashboard() {
         <div className="text-center">
           <div className="relative w-20 h-20 mx-auto mb-6">
             <div className="absolute inset-0 border-4 border-indigo-200 rounded-full"></div>
-            <div className="absolute inset-0 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+            <div className="absolute inset-0 border-4 border-green-600 border-t-transparent rounded-full animate-spin"></div>
           </div>
           <p className="text-gray-700 text-xl font-semibold">Loading your dashboard...</p>
           <p className="text-gray-500 text-sm mt-2">Analyzing your performance data</p>
@@ -103,11 +103,11 @@ export default function StudentDashboard() {
 
         {/* Header */}
         <div className="mb-10 flex items-center gap-3">
-          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center">
+          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-green-600 to-emerald-600 flex items-center justify-center">
             <Sparkles className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            <h1 className="text-4xl font-bold bg-emerald-600 bg-clip-text text-transparent">
               Welcome back, Student
             </h1>
             <p className="text-gray-600 font-medium">Track your academic progress & predicted outcomes</p>
@@ -115,12 +115,12 @@ export default function StudentDashboard() {
         </div>
 
         <div className="mb-10">
-          <div className="bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 rounded-3xl shadow-2xl p-10 text-white relative overflow-hidden">
+          <div className="bg-gradient-to-br from-green-600 to-emerald-600 rounded-3xl shadow-2xl p-10 text-white relative overflow-hidden">
 
             <div className="relative z-10">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 rounded-xl bg-white bg-opacity-20 backdrop-blur-sm flex items-center justify-center">
-                  <Target className="w-7 h-7 text-purple-600" />
+                  <Target className="w-7 h-7 text-green-600" />
                 </div>
                 <div>
                   <h2 className="text-3xl font-bold">Score Prediction</h2>
@@ -138,8 +138,8 @@ export default function StudentDashboard() {
                       <p className="text-indigo-100 text-lg font-semibold mt-2">out of 100</p>
                     </div>
                     <div className="bg-white bg-opacity-10 backdrop-blur-md rounded-2xl px-8 py-5 mb-4 border border-white border-opacity-20">
-                      <p className="text-xs text-purple-600 font-semibold uppercase tracking-wider mb-1">Grade</p>
-                      <p className="text-5xl font-black text-purple-600">{scaledPrediction ? getScoreGrade(scaledPrediction) : "N/A"}</p>
+                      <p className="text-xs text-green-600 font-semibold uppercase tracking-wider mb-1">Grade</p>
+                      <p className="text-5xl font-black text-green-600">{scaledPrediction ? getScoreGrade(scaledPrediction) : "N/A"}</p>
                     </div>
                   </div>
 

@@ -104,7 +104,7 @@ function AssignmentDetails({ role = "teacher" }) {
                     : "/admin/assignment"
                 )
               }
-              className="flex items-center text-slate-600 hover:text-blue-600 transition-colors duration-200 mb-2 group"
+              className="flex items-center text-slate-600 hover:text-green-600 transition-colors duration-200 mb-2 group"
             >
               <svg
                 className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform duration-200"
@@ -131,7 +131,7 @@ function AssignmentDetails({ role = "teacher" }) {
 
           <button
             onClick={handleMarkAssignment}
-            className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-5 py-3 rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-md hover:shadow-xl"
+            className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-5 py-3 rounded-xl font-semibold hover:from-green-600 hover:to-emerald-700 transform hover:scale-105 transition-all duration-200 shadow-md hover:shadow-xl"
           >
             📝 Mark Assignment
           </button>
@@ -140,7 +140,7 @@ function AssignmentDetails({ role = "teacher" }) {
         {assignmentData ? (
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
             {/* Status Bar */}
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-8 py-4">
+            <div className="bg-gradient-to-r from-green-600 to-emerald-700 px-8 py-4">
               <div className="flex items-center justify-between text-white">
                 <div className="flex items-center space-x-3">
                   <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
@@ -153,10 +153,10 @@ function AssignmentDetails({ role = "teacher" }) {
             <div className="p-8">
               <div className="grid gap-8">
                 {/* Title */}
-                <div className="bg-slate-50 rounded-xl p-6 border border-slate-200 hover:border-blue-300 transition-colors duration-200">
+                <div className="bg-slate-50 rounded-xl p-6 border border-slate-200 hover:border-green-300 transition-colors duration-200">
                   <label className="text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wide flex items-center">
                     <svg
-                      className="w-4 h-4 mr-2 text-blue-600"
+                      className="w-4 h-4 mr-2 text-green-600"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -176,7 +176,7 @@ function AssignmentDetails({ role = "teacher" }) {
                       name="title"
                       value={assignmentData.title}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg font-medium bg-white shadow-sm"
+                      className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-lg font-medium bg-white shadow-sm"
                     />
                   ) : (
                     <h2 className="text-2xl font-bold text-slate-800 leading-tight">
@@ -186,10 +186,10 @@ function AssignmentDetails({ role = "teacher" }) {
                 </div>
 
                 {/* Content */}
-                <div className="bg-slate-50 rounded-xl p-6 border border-slate-200 hover:border-blue-300 transition-colors duration-200">
+                <div className="bg-slate-50 rounded-xl p-6 border border-slate-200 hover:border-green-300 transition-colors duration-200">
                   <label className="text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wide flex items-center">
                     <svg
-                      className="w-4 h-4 mr-2 text-blue-600"
+                      className="w-4 h-4 mr-2 text-green-600"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -209,7 +209,7 @@ function AssignmentDetails({ role = "teacher" }) {
                       value={assignmentData.assignment}
                       onChange={handleChange}
                       rows="8"
-                      className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-vertical bg-white shadow-sm"
+                      className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 resize-vertical bg-white shadow-sm"
                     />
                   ) : (
                     <p className="text-slate-700 leading-relaxed whitespace-pre-wrap bg-white p-4 rounded-lg border">
@@ -219,10 +219,10 @@ function AssignmentDetails({ role = "teacher" }) {
                 </div>
 
                 {/* Deadline */}
-                <div className="bg-slate-50 rounded-xl p-6 border border-slate-200 hover:border-blue-300 transition-colors duration-200">
+                <div className="bg-slate-50 rounded-xl p-6 border border-slate-200 hover:border-green-300 transition-colors duration-200">
                   <label className="text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wide flex items-center">
                     <svg
-                      className="w-4 h-4 mr-2 text-blue-600"
+                      className="w-4 h-4 mr-2 text-green-600"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -242,14 +242,14 @@ function AssignmentDetails({ role = "teacher" }) {
                       name="deadline"
                       value={assignmentData.deadline}
                       onChange={handleChange}
-                      className="px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg bg-white shadow-sm"
+                      className="px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-lg bg-white shadow-sm"
                     />
                   ) : (
                     <div className="bg-white p-4 rounded-lg border">
                       <div className="flex items-center space-x-3">
                         <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
                           <svg
-                            className="w-6 h-6 text-blue-600"
+                            className="w-6 h-6 text-green-600"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -321,7 +321,7 @@ function AssignmentDetails({ role = "teacher" }) {
                 ) : (
                   <button
                     onClick={() => setupdate(true)}
-                    className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-lg flex items-center justify-center space-x-2 group"
+                    className="flex-1 bg-gradient-to-r from-green-600 to-emerald-700 text-white px-8 py-4 rounded-xl font-semibold hover:from-green-700 hover:to-emerald-700 transform hover:scale-105 transition-all duration-200 shadow-lg flex items-center justify-center space-x-2 group"
                   >
                     <svg
                       className="w-5 h-5 group-hover:rotate-12 transition-transform duration-200"

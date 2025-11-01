@@ -23,7 +23,7 @@ const AttendanceById = () => {
   const { id } = useParams(); // student id from route param
   const [attendance, setAttendance] = useState({});
   const [year, setYear] = useState(2082);
-  const [month, setMonth] = useState(5);
+  const [month, setMonth] = useState(7);
   const [present, setPresent] = useState(0);
   const [absent, setAbsent] = useState(0);
 
@@ -36,7 +36,7 @@ const AttendanceById = () => {
   useEffect(() => {
     const fetchAttendance = async () => {
       try {
-        const data = await attendanceById(id); // 👈 fetch attendance by student id
+        const data = await attendanceById(id); 
         const map = {};
         data.forEach((entry) => {
           map[entry.nepali_date] = entry.status;
@@ -114,7 +114,7 @@ const AttendanceById = () => {
               className={`w-12 h-12 rounded-full text-xl font-bold flex items-center justify-center shadow-lg transition-all duration-200 ${
                 year === MIN_YEAR && month === MIN_MONTH
                   ? "bg-gray-300 cursor-not-allowed text-gray-600"
-                  : "bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white"
+                  : "bg-emerald-600 hover:bg-gradient-to-r from-green-400 to-emerald-600 text-white"
               }`}
               aria-label="Previous Month"
             >
@@ -122,7 +122,7 @@ const AttendanceById = () => {
             </button>
 
             <div className="text-center flex flex-col items-center flex-grow">
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+              <h1 className="text-4xl font-bold bg-emerald-600 bg-clip-text text-transparent mb-2">
                 Attendance
               </h1>
               <div className="text-xl font-semibold text-gray-700 bg-gradient-to-r from-blue-100 to-purple-100 px-6 py-2 rounded-full">
@@ -132,7 +132,7 @@ const AttendanceById = () => {
 
             <button
               onClick={handleNextMonth}
-              className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full hover:from-blue-600 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-lg flex items-center justify-center text-xl font-bold"
+              className="w-12 h-12 bg-emerald-600 text-white rounded-full hover:bg-gradient-to-r from-green-400 to-emerald-600 transform hover:scale-105 transition-all duration-200 shadow-lg flex items-center justify-center text-xl font-bold"
               aria-label="Next Month"
             >
               ›

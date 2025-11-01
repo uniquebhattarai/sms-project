@@ -63,7 +63,7 @@ function TeacherAttendance() {
             <FiCalendar className="w-6 h-6 text-slate-600" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700">
+            <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-600">
               Attendance Summary
             </h1>
             <p className="text-slate-600">
@@ -76,7 +76,7 @@ function TeacherAttendance() {
         <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 p-6">
           <div className="flex items-center gap-3 mb-6">
             <div className="p-2 bg-blue-50 rounded-lg">
-              <FiSearch className="w-5 h-5 text-blue-600" />
+              <FiSearch className="w-5 h-5 text-green-600" />
             </div>
             <div>
               <h2 className="text-xl font-bold text-slate-800">
@@ -92,7 +92,7 @@ function TeacherAttendance() {
             {/* Dropdown */}
             <div className="md:col-span-2 space-y-2">
               <label className="flex items-center gap-2 text-sm font-medium text-slate-700">
-                <FiUsers className="w-4 h-4 text-purple-500" />
+                <FiUsers className="w-4 h-4 text-green-500" />
                 Select Class
               </label>
               <select
@@ -113,7 +113,7 @@ function TeacherAttendance() {
             <div className="space-y-2">
               <label className="text-sm font-medium text-transparent">Action</label>
               <button
-                className="w-full bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white px-6 py-3 rounded-xl hover:opacity-90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white px-6 py-3 rounded-xl hover:opacity-90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 onClick={searchHandler}
                 disabled={loading || !selectedClass}
               >
@@ -135,7 +135,7 @@ function TeacherAttendance() {
 
         {/* Results */}
         <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 overflow-hidden">
-          <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white p-6">
+          <div className="bg-emerald-600 text-white p-6">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-white/20 rounded-lg">
                 <FiBarChart2 className="w-6 h-6" />
@@ -207,7 +207,7 @@ function TeacherAttendance() {
                     {/* Badge + Button */}
                     <div className="flex items-center gap-3">
                       <button
-                        className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white px-4 py-2 rounded-lg transition-all duration-200 flex items-center gap-2 text-sm font-medium hover:opacity-90"
+                        className="bg-purple-700 text-white px-4 py-2 rounded-lg transition-all duration-200 flex items-center gap-2 text-sm font-medium hover:opacity-90"
                         onClick={() => navigate(`/teacher/student-attendance/${item.student__id}`)  }
                       >
                         <FiEye className="w-4 h-4" />

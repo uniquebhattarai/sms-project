@@ -133,7 +133,7 @@ function AddMarksheet({ role = "teacher" }) {
             <FiArrowLeft className="w-5 h-5 text-slate-600" />
           </button>
           <div>
-            <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700">
+            <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-emerald-600">
               Add New Marksheet
             </h1>
             <p className="text-slate-600">Create a new performance record for a student</p>
@@ -144,7 +144,7 @@ function AddMarksheet({ role = "teacher" }) {
         <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 overflow-hidden">
           
           {/* Card Header */}
-          <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white p-6">
+          <div className="bg-gradient-to-r from-green-600 to-emerald-600 text-white p-6">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-white/20 rounded-lg">
                 <FiFileText className="w-6 h-6" />
@@ -166,7 +166,7 @@ function AddMarksheet({ role = "teacher" }) {
                 {/* Exam Type */}
                 <div className="space-y-2">
                   <label className="flex items-center gap-2 text-sm font-medium text-slate-700">
-                    <FiAward className="w-4 h-4 text-indigo-500" />
+                    <FiAward className="w-4 h-4 text-green-500" />
                     Exam Type
                   </label>
                   <select
@@ -186,7 +186,7 @@ function AddMarksheet({ role = "teacher" }) {
                 {/* Class */}
                 <div className="space-y-2">
                   <label className="flex items-center gap-2 text-sm font-medium text-slate-700">
-                    <FiUsers className="w-4 h-4 text-purple-500" />
+                    <FiUsers className="w-4 h-4 text-green-500" />
                     Class
                   </label>
                   <select
@@ -206,7 +206,7 @@ function AddMarksheet({ role = "teacher" }) {
                 {/* Subject */}
                 <div className="space-y-2">
                   <label className="flex items-center gap-2 text-sm font-medium text-slate-700">
-                    <FiBookOpen className="w-4 h-4 text-blue-500" />
+                    <FiBookOpen className="w-4 h-4 text-green-500" />
                     Subject
                   </label>
                   <select
@@ -249,7 +249,7 @@ function AddMarksheet({ role = "teacher" }) {
               {/* Marks Section */}
               <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-4">
                 <h3 className="font-semibold text-slate-800 mb-4 flex items-center gap-2">
-                  <FiTarget className="w-5 h-5 text-indigo-600" />
+                  <FiTarget className="w-5 h-5 text-green-600" />
                   Marks Information
                 </h3>
                 
@@ -288,7 +288,7 @@ function AddMarksheet({ role = "teacher" }) {
                   <div className="mt-4 p-3 bg-white rounded-lg border border-blue-200">
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-slate-600">Percentage:</span>
-                      <span className="font-bold text-lg text-indigo-600">
+                      <span className="font-bold text-lg text-green-600">
                         {((parseFloat(marks) / parseFloat(fullMarks)) * 100).toFixed(2)}%
                       </span>
                     </div>
@@ -308,7 +308,7 @@ function AddMarksheet({ role = "teacher" }) {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex-1 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white px-6 py-3 rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
+                  className="flex-1 bg-gradient-to-r from-green-600 to-emerald-600 text-white px-6 py-3 rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
                 >
                   <FiSave className="w-4 h-4" />
                   {loading ? "Saving..." : "Add Marksheet"}

@@ -21,7 +21,7 @@ const BS_MONTH_NAMES = [
 const Attendance = () => {
   const [attendance, setAttendance] = useState({});
   const [year, setYear] = useState(2082);
-  const [month, setMonth] = useState(5);
+  const [month, setMonth] = useState(7);
   const [present, setPresent] = useState(0);
   const [absent, setAbsent] = useState(0);
 
@@ -112,7 +112,7 @@ const Attendance = () => {
               className={`w-12 h-12 rounded-full text-xl font-bold flex items-center justify-center shadow-lg transition-all duration-200 ${
                 year === MIN_YEAR && month === MIN_MONTH
                   ? "bg-gray-300 cursor-not-allowed text-gray-600"
-                  : "bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white"
+                  : "bg-emerald-600  hover:from-green-500 hover:to-emerald-600 hover:scale-105 transition-all duration-200 text-white"
               }`}
               aria-label="Previous Month"
             >
@@ -120,7 +120,7 @@ const Attendance = () => {
             </button>
 
             <div className="text-center flex flex-col items-center flex-grow">
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+              <h1 className="text-4xl font-bold bg-emerald-700 bg-clip-text text-transparent mb-2">
                 Attendance
               </h1>
               <div className="text-xl font-semibold text-gray-700 bg-gradient-to-r from-blue-100 to-purple-100 px-6 py-2 rounded-full">
@@ -130,7 +130,7 @@ const Attendance = () => {
 
             <button
               onClick={handleNextMonth}
-              className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full hover:from-blue-600 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-lg flex items-center justify-center text-xl font-bold"
+              className="w-12 h-12 bg-emerald-600 text-white rounded-full hover:from-green-400  hover:to-emerald-600 transform hover:scale-105 transition-all duration-200 shadow-lg flex items-center justify-center text-xl font-bold"
               aria-label="Next Month"
             >
               ›

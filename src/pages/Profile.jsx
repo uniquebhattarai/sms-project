@@ -96,7 +96,7 @@ function Profile({ setIsLoggedIn, setFullName, setPhotoUrl }) {
           <div className="flex flex-col lg:flex-col items-center lg:items-center gap-8">
             <div className="flex flex-col items-center lg:items-start">
               <div className="relative group">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full blur opacity-50 group-hover:opacity-75 transition-all duration-300"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-green-600 to-emerald-600 rounded-full blur opacity-50 group-hover:opacity-75 transition-all duration-300"></div>
                 <label className="relative cursor-pointer block">
                   <img
                     src={avatarUrl}
@@ -113,7 +113,7 @@ function Profile({ setIsLoggedIn, setFullName, setPhotoUrl }) {
               {file && (
                 <button
                   onClick={handlePhotoUpload}
-                  className="mt-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-2 rounded-full text-sm font-medium hover:from-blue-600 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-lg"
+                  className="mt-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-2 rounded-full text-sm font-medium hover:from-green-600 hover:to-emerald-600 transform hover:scale-105 transition-all duration-200 shadow-lg"
                 >
                   Upload Photo
                 </button>
@@ -121,7 +121,7 @@ function Profile({ setIsLoggedIn, setFullName, setPhotoUrl }) {
             </div>
 
             <div className="flex-1 text-center lg:text-left">
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+              <h1 className="text-4xl font-bold bg-gradient-to-r  from-green-600 to-emerald-600 bg-clip-text text-transparent mb-2">
                 {formData.full_name || "Your Profile"}
               </h1>
               <p className="text-gray-600 text-lg mb-2">{formData.email}</p>
@@ -131,7 +131,7 @@ function Profile({ setIsLoggedIn, setFullName, setPhotoUrl }) {
 
         {/* Edit Profile */}
         <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl border border-white/30 p-12">
-          <h2 className="text-3xl font-bold mb-8 text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <h2 className="text-3xl font-bold mb-8 text-center bg-gradient-to-r from-green-400 to-emerald-600 bg-clip-text text-transparent">
             Edit Profile
           </h2>
 
@@ -143,7 +143,7 @@ function Profile({ setIsLoggedIn, setFullName, setPhotoUrl }) {
                 value={formData.full_name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-4 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white/80 backdrop-blur-sm transition-all duration-200 hover:bg-white/90 text-lg"
+                className="w-full px-4 py-4 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 bg-white/80 backdrop-blur-sm transition-all duration-200 hover:bg-white/90 text-lg"
                 placeholder="Enter your full name"
               />
             </div>
@@ -156,7 +156,7 @@ function Profile({ setIsLoggedIn, setFullName, setPhotoUrl }) {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-4 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white/80 backdrop-blur-sm transition-all duration-200 hover:bg-white/90 text-lg"
+                className="w-full px-4 py-4 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 bg-white/80 backdrop-blur-sm transition-all duration-200 hover:bg-white/90 text-lg"
                 placeholder="Enter your email address"
               />
             </div>
@@ -164,7 +164,7 @@ function Profile({ setIsLoggedIn, setFullName, setPhotoUrl }) {
             <div className="flex flex-col sm:flex-row gap-4 pt-8 border-t border-gray-100 mt-6">
               <button
                 type="submit"
-                className="flex-1 bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-blue-600 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl text-lg"
+                className="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-8 py-4 rounded-xl font-semibold  hover:from-green-600  hover:to-emerald-600 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl text-lg"
               >
                 Update Profile
               </button>

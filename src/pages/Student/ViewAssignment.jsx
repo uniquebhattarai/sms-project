@@ -39,7 +39,7 @@ function ViewAssignment() {
         <div className="max-w-5xl mx-auto">
           <div className="bg-white rounded-xl shadow-2xl overflow-hidden">
             <div className="animate-pulse">
-              <div className="bg-indigo-500 h-16"></div>
+              <div className="bg-green-500 h-16"></div>
               <div className="p-8 space-y-6">
                 <div className="h-8 bg-slate-200 rounded w-2/3"></div>
                 <div className="h-4 bg-slate-200 rounded w-1/4"></div>
@@ -60,7 +60,7 @@ function ViewAssignment() {
     <div className={containerClass}>
       <div className={isFullscreen ? "h-full flex flex-col" : "max-w-5xl mx-auto"}>
         {/* Updated Toolbar */}
-        <div className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-6 py-4 shadow-xl rounded-t-xl">
+        <div className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-6 py-4 shadow-xl rounded-t-xl">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               {!isFullscreen && (
@@ -158,9 +158,9 @@ function ViewAssignment() {
               <div className={`${isFullscreen ? 'flex-1 overflow-y-auto' : ''} px-8 py-8`}>
                 <div className="max-w-none" style={{ fontSize: `${fontSize}px` }}>
                   <div className="prose prose-slate prose-lg max-w-none">
-                    <div className="bg-slate-50 border-l-4 border-indigo-500 p-6 rounded-r-lg mb-8">
+                    <div className="bg-slate-50 border-l-4 border-green-500 p-6 rounded-r-lg mb-8">
                       <div className="flex items-center mb-2">
-                        <span className="font-semibold text-indigo-700">📄 Assignment Instructions</span>
+                        <span className="font-semibold text-green-700">📄 Assignment Instructions</span>
                       </div>
                       <p className="text-slate-700 m-0">Please read through all sections carefully before beginning your work.</p>
                     </div>

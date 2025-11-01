@@ -21,7 +21,6 @@ function Tmarksheet({ role = "teacher" }) {
   const [editing, setEditing] = useState(null);
   const [formData, setFormData] = useState({ marks: "", full_marks: "" });
 
-  // ✅ Fetch classes
   const fetchClasses = async () => {
     try {
       const res = await apiConnector("GET", "/class_list/");
@@ -31,7 +30,7 @@ function Tmarksheet({ role = "teacher" }) {
     }
   };
 
-  // ✅ Fetch students
+
   const fetchStudents = async (classId) => {
     try {
       const res = await apiConnector("GET", `/get_student_by_class/${classId}`);
@@ -41,7 +40,7 @@ function Tmarksheet({ role = "teacher" }) {
     }
   };
 
-  // ✅ Fetch performance
+ 
   const searchPerformance = async () => {
     if (!selectedStudent) {
       Toast.error("Please select a student");
@@ -63,7 +62,7 @@ function Tmarksheet({ role = "teacher" }) {
     }
   };
 
-  // ✅ Handle edit
+
   const handleEdit = (mark) => {
     setEditing(mark.id);
     setFormData({
@@ -72,7 +71,6 @@ function Tmarksheet({ role = "teacher" }) {
     });
   };
 
-  // ✅ Handle update
   const handleUpdate = async () => {
     try {
       await apiConnector("PUT", `/marks/update/${editing}/`, {
@@ -87,7 +85,7 @@ function Tmarksheet({ role = "teacher" }) {
     }
   };
 
-  // ✅ Handle delete
+
   const handleDelete = async (markId) => {
     if (!window.confirm("Are you sure you want to delete this mark?")) return;
     try {
@@ -106,9 +104,9 @@ function Tmarksheet({ role = "teacher" }) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 py-8 px-4">
       <div className="max-w-7xl mx-auto space-y-6">
-        {/* Header */}
+       
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 mb-2">
+          <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-emerald-700 mb-2">
             Marksheet Management
           </h1>
           <p className="text-slate-600 text-lg">
@@ -116,7 +114,7 @@ function Tmarksheet({ role = "teacher" }) {
           </p>
         </div>
 
-        {/* Filters */}
+    
         <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 p-6">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
             {/* Class */}
@@ -170,7 +168,7 @@ function Tmarksheet({ role = "teacher" }) {
               </label>
               <button
                 onClick={searchPerformance}
-                className="w-full bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white px-6 py-3 rounded-xl flex items-center justify-center gap-2"
+                className="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white px-6 py-3 rounded-xl flex items-center justify-center gap-2"
                 disabled={loading || !selectedStudent}
               >
                 <FiSearch className="w-4 h-4" />
@@ -201,7 +199,7 @@ function Tmarksheet({ role = "teacher" }) {
 
         {/* Results */}
         <div className="bg-white/70 rounded-2xl shadow-xl border border-white/20 overflow-hidden">
-          <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white p-6 flex items-center gap-3">
+          <div className="bg-gradient-to-r from-green-600 to-emerald-600 text-white p-6 flex items-center gap-3">
             <FiClipboard className="w-6 h-6" />
             <div>
               <h2 className="text-2xl font-bold">Student Marksheet</h2>
