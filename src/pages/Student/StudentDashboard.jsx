@@ -114,7 +114,6 @@ export default function StudentDashboard() {
           </div>
         </div>
 
-        {/* Score Prediction */}
         <div className="mb-10">
           <div className="bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 rounded-3xl shadow-2xl p-10 text-white relative overflow-hidden">
 

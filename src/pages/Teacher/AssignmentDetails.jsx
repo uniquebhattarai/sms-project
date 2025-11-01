@@ -47,11 +47,14 @@ function AssignmentDetails({ role = "teacher" }) {
   };
 
   const deleteHandler = async () => {
-    if (!window.confirm("Are you sure you want to delete your Assignment?")) return;
+    if (!window.confirm("Are you sure you want to delete your Assignment?"))
+      return;
     try {
       await deleteAssignment(id);
       Toast.success("Assignment Deleted Successfully");
-      navigate(role === "teacher" ? "/teacher/assignment" : "/admin/assignment");
+      navigate(
+        role === "teacher" ? "/teacher/assignment" : "/admin/assignment"
+      );
     } catch (error) {
       console.error("Error while deleting Assignment", error);
       Toast.error("Error while deleting Assignment");
@@ -59,9 +62,15 @@ function AssignmentDetails({ role = "teacher" }) {
   };
 
   const handleMarkAssignment = () => {
-    navigate(`/admin/mark/assignment/${id}`,{
-       state: { classId: assignmentData.classlevel }
-    })
+    if (role === "teacher") {
+      navigate(`/teacher/mark/assignment/${id}`, {
+        state: { classId: assignmentData.classlevel },
+      });
+    } else {
+      navigate(`/admin/mark/assignment/${id}`, {
+        state: { classId: assignmentData.classlevel },
+      });
+    }
   };
 
   if (loading) {
@@ -89,7 +98,11 @@ function AssignmentDetails({ role = "teacher" }) {
           <div>
             <button
               onClick={() =>
-                navigate(role === "teacher" ? "/teacher/assignment" : "/admin/assignment")
+                navigate(
+                  role === "teacher"
+                    ? "/teacher/assignment"
+                    : "/admin/assignment"
+                )
               }
               className="flex items-center text-slate-600 hover:text-blue-600 transition-colors duration-200 mb-2 group"
             >
@@ -99,23 +112,29 @@ function AssignmentDetails({ role = "teacher" }) {
                 stroke="currentColor"
                 viewBox="0 0 24 24"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
               </svg>
               Back to Assignments
             </button>
-            <h1 className="text-4xl font-bold text-slate-800">Assignment Details</h1>
-            <p className="text-slate-600">View, edit, or delete assignment information</p>
+            <h1 className="text-4xl font-bold text-slate-800">
+              Assignment Details
+            </h1>
+            <p className="text-slate-600">
+              View, edit, or delete assignment information
+            </p>
           </div>
 
-          {/* 🟩 Mark Assignment Button (only visible for Admin) */}
-          {role === "admin" && (
-            <button
-              onClick={handleMarkAssignment}
-              className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-5 py-3 rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-md hover:shadow-xl"
-            >
-              📝 Mark Assignment
-            </button>
-          )}
+          <button
+            onClick={handleMarkAssignment}
+            className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-5 py-3 rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-md hover:shadow-xl"
+          >
+            📝 Mark Assignment
+          </button>
         </div>
 
         {assignmentData ? (
@@ -136,8 +155,18 @@ function AssignmentDetails({ role = "teacher" }) {
                 {/* Title */}
                 <div className="bg-slate-50 rounded-xl p-6 border border-slate-200 hover:border-blue-300 transition-colors duration-200">
                   <label className="text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wide flex items-center">
-                    <svg className="w-4 h-4 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a.997.997 0 01-1.414 0l-7-7A1.997 1.997 0 013 12V7a4 4 0 014-4z" />
+                    <svg
+                      className="w-4 h-4 mr-2 text-blue-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a.997.997 0 01-1.414 0l-7-7A1.997 1.997 0 013 12V7a4 4 0 014-4z"
+                      />
                     </svg>
                     Assignment Title
                   </label>
@@ -150,15 +179,27 @@ function AssignmentDetails({ role = "teacher" }) {
                       className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg font-medium bg-white shadow-sm"
                     />
                   ) : (
-                    <h2 className="text-2xl font-bold text-slate-800 leading-tight">{assignmentData.title}</h2>
+                    <h2 className="text-2xl font-bold text-slate-800 leading-tight">
+                      {assignmentData.title}
+                    </h2>
                   )}
                 </div>
 
                 {/* Content */}
                 <div className="bg-slate-50 rounded-xl p-6 border border-slate-200 hover:border-blue-300 transition-colors duration-200">
                   <label className="text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wide flex items-center">
-                    <svg className="w-4 h-4 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    <svg
+                      className="w-4 h-4 mr-2 text-blue-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                      />
                     </svg>
                     Assignment Content
                   </label>
@@ -180,8 +221,18 @@ function AssignmentDetails({ role = "teacher" }) {
                 {/* Deadline */}
                 <div className="bg-slate-50 rounded-xl p-6 border border-slate-200 hover:border-blue-300 transition-colors duration-200">
                   <label className="text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wide flex items-center">
-                    <svg className="w-4 h-4 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    <svg
+                      className="w-4 h-4 mr-2 text-blue-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                      />
                     </svg>
                     Deadline
                   </label>
@@ -197,13 +248,25 @@ function AssignmentDetails({ role = "teacher" }) {
                     <div className="bg-white p-4 rounded-lg border">
                       <div className="flex items-center space-x-3">
                         <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                          <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          <svg
+                            className="w-6 h-6 text-blue-600"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                            />
                           </svg>
                         </div>
                         <div>
                           <span className="text-xl font-semibold text-slate-800 block">
-                            {new Date(assignmentData.deadline).toLocaleDateString("en-US", {
+                            {new Date(
+                              assignmentData.deadline
+                            ).toLocaleDateString("en-US", {
                               weekday: "long",
                               year: "numeric",
                               month: "long",
@@ -239,7 +302,12 @@ function AssignmentDetails({ role = "teacher" }) {
                         stroke="currentColor"
                         viewBox="0 0 24 24"
                       >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
                       </svg>
                       <span>Save Changes</span>
                     </button>
@@ -261,7 +329,12 @@ function AssignmentDetails({ role = "teacher" }) {
                       stroke="currentColor"
                       viewBox="0 0 24 24"
                     >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                      />
                     </svg>
                     <span>Edit Assignment</span>
                   </button>
@@ -277,7 +350,12 @@ function AssignmentDetails({ role = "teacher" }) {
                     stroke="currentColor"
                     viewBox="0 0 24 24"
                   >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                    />
                   </svg>
                   <span>Delete</span>
                 </button>
@@ -286,8 +364,12 @@ function AssignmentDetails({ role = "teacher" }) {
           </div>
         ) : (
           <div className="bg-white rounded-2xl shadow-xl p-8 text-center">
-            <h3 className="text-xl font-semibold text-slate-700 mb-2">No Assignment Found</h3>
-            <p className="text-slate-500">The assignment data could not be loaded.</p>
+            <h3 className="text-xl font-semibold text-slate-700 mb-2">
+              No Assignment Found
+            </h3>
+            <p className="text-slate-500">
+              The assignment data could not be loaded.
+            </p>
           </div>
         )}
       </div>
