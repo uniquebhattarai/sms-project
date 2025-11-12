@@ -329,14 +329,14 @@ export default function AdminPredictionDashboard() {
             <MetricCard
               icon={CheckCircle}
               title="Assignments"
-              value={`${dashboardData?.assignment?.average_assignment_submission_percentage}%`}
+              value={`${dashboardData?.assignment?.average_assignment_submission_percentage.toFixed(1)}%`}
               subtitle={`${dashboardData?.assignment?.unsubmitted_assignment} pending`}
               gradient="from-emerald-500 to-teal-600"
             />
             <MetricCard
               icon={Award}
               title="Assessment"
-              value={`${dashboardData?.internal_assesment?.avg_intarnal_assesment_mark}%`}
+              value={`${dashboardData?.internal_assesment?.avg_intarnal_assesment_mark.toFixed(1)}%`}
               subtitle="Internal score avg"
               gradient="from-amber-500 to-orange-600"
             />

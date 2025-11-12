@@ -167,8 +167,8 @@ export default function StudentDashboard() {
         {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
           <MetricCard icon={Calendar} title="Attendance" value={`${dashboardData?.attendance?.percentage?.toFixed(1)}%`} subtitle={`${dashboardData?.attendance?.attendance_rate} of ${dashboardData?.attendance?.total} classes`} gradient="from-purple-500 to-indigo-600" />
-          <MetricCard icon={CheckCircle} title="Assignments" value={`${dashboardData?.assignment?.average_assignment_submission_percentage}%`} subtitle={`${dashboardData?.assignment?.unsubmitted_assignment} pending`} gradient="from-emerald-500 to-teal-600" />
-          <MetricCard icon={Award} title="Assessment" value={`${dashboardData?.internal_assesment?.avg_intarnal_assesment_mark}%`} subtitle="Internal score avg" gradient="from-amber-500 to-orange-600" />
+          <MetricCard icon={CheckCircle} title="Assignments" value={`${dashboardData?.assignment?.average_assignment_submission_percentage.toFixed(1)}%`} subtitle={`${dashboardData?.assignment?.unsubmitted_assignment} pending`} gradient="from-emerald-500 to-teal-600" />
+          <MetricCard icon={Award} title="Assessment" value={`${dashboardData?.internal_assesment?.avg_intarnal_assesment_mark.toFixed(1)}%`} subtitle="Internal score avg" gradient="from-amber-500 to-orange-600" />
           <MetricCard icon={Users} title="Participation" value={dashboardData?.class_participation?.average_class_participation?.toFixed(1)} subtitle="Class engagement" gradient="from-pink-500 to-rose-600" />
         </div>
 
