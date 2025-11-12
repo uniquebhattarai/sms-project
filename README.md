@@ -1,5 +1,8 @@
 #  Student Score Prediction System (Frontend)
 
+ **Live Demo:** [https://sms-project-frontend.vercel.app/](https://sms-project-frontend.vercel.app/)
+
+
 The **Student Score Prediction System** is a web-based application that predicts students’ academic performance using machine learning models.  
 This repository contains the **frontend**, built with **React (Vite)** and styled using **Tailwind CSS v4**.
 
