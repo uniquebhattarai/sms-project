@@ -29,19 +29,19 @@ It provides an intuitive interface for uploading student data, visualizing predi
 
 ---
 
-## ⚙️ Installation and Setup
+##  Installation and Setup
 
 Follow these steps to run the frontend locally:
 
 ```bash
-# 1️⃣ Clone the repository
+# 1️ Clone the repository
 git clone https://github.com/your-username/student-score-prediction-frontend.git
 
-# 2️⃣ Move into the directory
+# 2️ Move into the directory
 cd student-score-prediction-frontend
 
-# 3️⃣ Install dependencies
+# 3️ Install dependencies
 npm install
 
-# 4️⃣ Start the development server
+# 4️ Start the development server
 npm run dev
