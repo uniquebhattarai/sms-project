@@ -1,1 +1,1 @@
-Student management system
+Student score prediction system
