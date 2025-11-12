@@ -1,4 +1,4 @@
-# 🎯 Student Score Prediction System (Frontend)
+#  Student Score Prediction System (Frontend)
 
 The **Student Score Prediction System** is a web-based application that predicts students’ academic performance using machine learning models.  
 This repository contains the **frontend**, built with **React (Vite)** and styled using **Tailwind CSS v4**.
@@ -7,17 +7,17 @@ It provides an intuitive interface for uploading student data, visualizing predi
 
 ---
 
-## 🚀 Features
-- 📊 Predicts student academic scores based on input parameters  
-- 🧠 Integration with trained ML model via API  
-- 🔐 JWT-based authentication  
-- 🧑‍🏫 Role-based dashboards (Student, Teacher, Admin)  
-- 📈 Data visualization of predicted and actual scores  
-- 🎨 Modern and responsive UI with Tailwind CSS  
+##  Features
+-  Predicts student academic scores based on input parameters  
+-  Integration with trained ML model via API  
+-  JWT-based authentication  
+-  Role-based dashboards (Student, Teacher, Admin)  
+-  Data visualization of predicted and actual scores  
+-  Modern and responsive UI with Tailwind CSS  
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 | Layer | Technologies Used |
 |--------|-------------------|
