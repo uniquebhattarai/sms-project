@@ -100,7 +100,7 @@ Follow these steps to run the frontend locally:
 git clone https://github.com/uniquebhattarai/Student-Score-Prediction-System.git
 
 # 2️ Move into the directory
-cd student-score-prediction-frontend
+cd Student-Score-Prediction-System
 
 # 3️ Install dependencies
 npm install
