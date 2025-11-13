@@ -49,33 +49,27 @@ npm install
 # 4️ Start the development server
 npm run dev
 
-##  Project Screenshots
+##  Screenshots
 
-###  Student Views
+###  Login Page
+![Login Page](https://raw.githubusercontent.com/uniquebhattarai/student-management-system/main/screenshots/login.png)
+
+###  Dashboard
+![Dashboard](https://raw.githubusercontent.com/uniquebhattarai/student-management-system/main/screenshots/StudentPrediction.png)
+
+
+###  Attendance Page
+![Attendance Page](https://raw.githubusercontent.com/uniquebhattarai/student-management-system/main/screenshots/Attendance.png)
+
+---
+
+##  All Screens (Grid View)
+
 <p align="center">
-  <img src="./screenshots/login.png" alt="Login Page" width="300"/>
-  <img src="./screenshots/StudentPrediction.png" alt="Student Dashboard" width="300"/>
-  <img src="./screenshots/StudentMarksheet.png" alt="Student Marksheet" width="300"/>
-  <img src="./screenshots/Attendance.png" alt="Student Attendance" width="300"/>
-  <img src="./screenshots/Assignments.png" alt="Student Assignments" width="300"/>
+  <img src="https://raw.githubusercontent.com/uniquebhattarai/student-management-system/main/screenshots/login.png" width="45%" />
+  <img src="https://raw.githubusercontent.com/uniquebhattarai/student-management-system/main/screenshots/StudentPrediction.png" width="45%" />
+  <br/>
+  <img src="https://raw.githubusercontent.com/uniquebhattarai/student-management-system/main/screenshots/Attendance.png" width="45%" />
 </p>
 
-###  Teacher Views
-<p align="center">
-  <img src="./screenshots/AssignmentManagement.png" alt="Assignment Management" width="300"/>
-  <img src="./screenshots/CreateAssignment.png" alt="Create Assignment" width="300"/>
-  <img src="./screenshots/AssignmentEdit.png" alt="Assignment Edit" width="300"/>
-  <img src="./screenshots/AssignmentMark.png" alt="Assignment Mark" width="300"/>
-  <img src="./screenshots/ClassParticipation.png" alt="Class Participation" width="300"/>
-</p>
-
-###  Admin Views
-<p align="center">
-  <img src="./screenshots/AdminDashboard.png" alt="Admin Dashboard" width="300"/>
-  <img src="./screenshots/AdminPrediction.png" alt="Admin Prediction" width="300"/>
-  <img src="./screenshots/AdminAttendance.png" alt="Admin Attendance" width="300"/>
-  <img src="./screenshots/AddMarksheet.png" alt="Add Marksheet" width="300"/>
-  <img src="./screenshots/ManageUserStudent.png" alt="Manage User Student" width="300"/>
-  <img src="./screenshots/ManageTeacher.png" alt="Manage Teacher" width="300"/>
-</p>
 
