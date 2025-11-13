@@ -32,6 +32,65 @@ It provides an intuitive interface for uploading student data, visualizing predi
 
 ---
 
+## Screenshots
+
+### Student Role
+
+**Login Page**  
+![Login Page](./screenshots/login.png)
+
+**Student Dashboard**  
+![Student Dashboard](./screenshots/StudentPrediction.png)
+
+**Student Marksheet**  
+![Student Marksheet](./screenshots/StudentMarksheet.png)
+
+**Student Attendance**  
+![Student Attendance](./screenshots/Attendance.png)
+
+**Student Assignments**  
+![Student Assignment](./screenshots/Assignments.png)
+
+---
+
+### Admin Role
+
+**Admin Dashboard**  
+![Admin Dashboard](./screenshots/AdminDashboard.png)
+
+**Check Student Predictions**  
+![Admin Predicted Score](./screenshots/AdminPrediction.png)
+
+**Manage Attendance**  
+![Admin managing Attendance](./screenshots/AdminAttendance.png)
+
+**Assignment Management**  
+![Admin Assignment Management](./screenshots/AssignmentManagement.png)
+
+**Create Assignment**  
+![Create Assignment](./screenshots/CreateAssignment.png)
+
+**Edit Assignment**  
+![Assignment Edit](./screenshots/AssignmentEdit.png)
+
+**Mark Assignment**  
+![Mark Assignment](./screenshots/AssignmentMark.png)
+
+**Class Participation**  
+![Class Participation](./screenshots/ClassParticipation.png)
+
+**Add Marksheet**  
+![Add Marksheet](./screenshots/AddMarksheet.png)
+
+**Manage Students**  
+![Manage User Student](./screenshots/ManageUserStudent.png)
+
+**Manage Teachers**  
+![Manage User Teacher](./screenshots/ManageTeacher.png)
+
+---
+
+
 ##  Installation and Setup
 
 Follow these steps to run the frontend locally:
@@ -49,27 +108,6 @@ npm install
 # 4️ Start the development server
 npm run dev
 
-##  Screenshots
 
-###  Login Page
-![Login Page](https://raw.githubusercontent.com/uniquebhattarai/student-management-system/main/screenshots/login.png)
-
-###  Dashboard
-![Dashboard](https://raw.githubusercontent.com/uniquebhattarai/student-management-system/main/screenshots/StudentPrediction.png)
-
-
-###  Attendance Page
-![Attendance Page](https://raw.githubusercontent.com/uniquebhattarai/student-management-system/main/screenshots/Attendance.png)
-
----
-
-##  All Screens (Grid View)
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/uniquebhattarai/student-management-system/main/screenshots/login.png" width="45%" />
-  <img src="https://raw.githubusercontent.com/uniquebhattarai/student-management-system/main/screenshots/StudentPrediction.png" width="45%" />
-  <br/>
-  <img src="https://raw.githubusercontent.com/uniquebhattarai/student-management-system/main/screenshots/Attendance.png" width="45%" />
-</p>
 
 
