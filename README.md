@@ -97,7 +97,7 @@ Follow these steps to run the frontend locally:
 
 ```bash
 # 1️ Clone the repository
-git clone https://github.com/your-username/student-score-prediction-frontend.git
+git clone https://github.com/uniquebhattarai/Student-Score-Prediction-System.git
 
 # 2️ Move into the directory
 cd student-score-prediction-frontend
