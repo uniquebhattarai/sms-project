@@ -49,50 +49,33 @@ npm install
 # 4️ Start the development server
 npm run dev
 
-### Login Page
-![Login Page](./screenshots/login.png)
+##  Project Screenshots
 
-### Student Dashboard
-![Student Dashboard](./screenshots/StudentPrediction.png)
+###  Student Views
+<p align="center">
+  <img src="./screenshots/login.png" alt="Login Page" width="300"/>
+  <img src="./screenshots/StudentPrediction.png" alt="Student Dashboard" width="300"/>
+  <img src="./screenshots/StudentMarksheet.png" alt="Student Marksheet" width="300"/>
+  <img src="./screenshots/Attendance.png" alt="Student Attendance" width="300"/>
+  <img src="./screenshots/Assignments.png" alt="Student Assignments" width="300"/>
+</p>
 
-### Student Marksheet
-![Student Marksheet](./screenshots/StudentMarksheet.png)
+###  Teacher Views
+<p align="center">
+  <img src="./screenshots/AssignmentManagement.png" alt="Assignment Management" width="300"/>
+  <img src="./screenshots/CreateAssignment.png" alt="Create Assignment" width="300"/>
+  <img src="./screenshots/AssignmentEdit.png" alt="Assignment Edit" width="300"/>
+  <img src="./screenshots/AssignmentMark.png" alt="Assignment Mark" width="300"/>
+  <img src="./screenshots/ClassParticipation.png" alt="Class Participation" width="300"/>
+</p>
 
-### Student Attendance
-![Student Attendance](./screenshots/Attendance.png)
+###  Admin Views
+<p align="center">
+  <img src="./screenshots/AdminDashboard.png" alt="Admin Dashboard" width="300"/>
+  <img src="./screenshots/AdminPrediction.png" alt="Admin Prediction" width="300"/>
+  <img src="./screenshots/AdminAttendance.png" alt="Admin Attendance" width="300"/>
+  <img src="./screenshots/AddMarksheet.png" alt="Add Marksheet" width="300"/>
+  <img src="./screenshots/ManageUserStudent.png" alt="Manage User Student" width="300"/>
+  <img src="./screenshots/ManageTeacher.png" alt="Manage Teacher" width="300"/>
+</p>
 
-### Student Assignment
-![Student Assignment](./screenshots/Assignments.png)
-
-### Admin Dashboard
-![Admin Dashboard](./screenshots/AdminDashboard.png)
-
-### Admin Checking Student Prediction
-![Student Predicted Score](./screenshots/AdminPrediction.png)
-
-### Admin Managing Attendance
-![Admin managing Attendance](./screenshots/AdminAttendance.png)
-
-### Assignment Management
-![Admin Assignment Management](./screenshots/AssignmentManagement.png)
-
-### Create Assignment
-![Create Assignment](./screenshots/CreateAssignment.png)
-
-### Assignment Edit
-![Assignment Edit](./screenshots/AssignmentEdit.png)
-
-### Mark Assignment
-![Mark Assignment](./screenshots/AssignmentMark.png)
-
-### Class Participation
-![Class Participation](./screenshots/ClassParticipation.png)
-
-### Add Marksheet
-![Add Marksheet](./screenshots/AddMarksheet.png)
-
-### Manage User Student
-![Manage User Student](./screenshots/ManageUserStudent.png)
-
-### Manage User Teacher
-![Manage User Teacher](./screenshots/ManageTeacher.png)
